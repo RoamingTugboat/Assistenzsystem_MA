@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Assistenzsystem_MA.Base.Data;
+using System;
 
-namespace Assistenzsystem_MA 
+namespace Assistenzsystem_MA.Base.Args
 {
     class FilteredSchrittArgs : EventArgs
     {

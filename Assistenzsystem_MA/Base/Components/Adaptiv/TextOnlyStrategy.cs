@@ -1,4 +1,6 @@
-﻿namespace Assistenzsystem_MA
+﻿using Assistenzsystem_MA.Base.Data;
+
+namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     class TextOnlyStrategy : FilterStrategy
     {

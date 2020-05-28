@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Assistenzsystem_MA.Base;
+using Assistenzsystem_MA.Base.Args;
+using Assistenzsystem_MA.Base.Data;
+using System;
 
 namespace Assistenzsystem_MA
 {
@@ -38,11 +41,12 @@ namespace Assistenzsystem_MA
         void printMedium(object sender, MediaArgs e)
         {
             var mediaDescription = "";
-            if (e.Anleitungsmedium is Text2D) {
+            if (e.Anleitungsmedium is Text2D)
+            {
                 mediaDescription += (e.Anleitungsmedium as Text2D);
             }
-            Console.WriteLine("Backend sent a "+e.Anleitungsmedium.GetType().Name+" Medium. "+mediaDescription);
-            
+            Console.WriteLine("Backend sent a " + e.Anleitungsmedium.GetType().Name + " Medium. " + mediaDescription);
+
         }
 
         public static void Main(string[] args)

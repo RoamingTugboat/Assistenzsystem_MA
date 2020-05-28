@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Assistenzsystem_MA.Base.Args;
+using Assistenzsystem_MA.Base.Data;
+using System;
 using System.Collections.Generic;
 
-namespace Assistenzsystem_MA
+namespace Assistenzsystem_MA.Base.Components.Anleitung
 {
     class Anleitungszustand
     {
@@ -12,7 +14,8 @@ namespace Assistenzsystem_MA
         int currentStep;
         public int CurrentStep
         {
-            get{
+            get
+            {
                 return currentStep;
             }
             set
@@ -23,7 +26,7 @@ namespace Assistenzsystem_MA
                 }
                 if (0 <= value && value < Anleitung.Schrittzahl)
                 {
-                    Console.WriteLine(Anleitung.Name + " war auf Schritt " + currentStep + ", wechselt auf " +value);
+                    Console.WriteLine(Anleitung.Name + " war auf Schritt " + currentStep + ", wechselt auf " + value);
                     currentStep = value;
                     OnSchrittChanged?.Invoke(this, new SchrittChangedArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
@@ -67,14 +70,14 @@ namespace Assistenzsystem_MA
         {
             foreach (var anleitung in this.Anleitungsdatenbank)
             {
-                if(anleitung.Name.Equals(newAnleitungName))
+                if (anleitung.Name.Equals(newAnleitungName))
                 {
                     Anleitung = anleitung;
                     CurrentStep = 0;
                     return;
                 }
             }
-            throw new Exception("Anleitung mit diesem Namen existiert nicht: "+newAnleitungName);
+            throw new Exception("Anleitung mit diesem Namen existiert nicht: " + newAnleitungName);
         }
 
         public void flipForward()

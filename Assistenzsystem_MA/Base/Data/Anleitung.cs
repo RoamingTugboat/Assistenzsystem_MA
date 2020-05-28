@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA.Base.Data
 {
+    using System.Collections.Generic;
+
     class Anleitung
     {
         public string Name { get; private set; }

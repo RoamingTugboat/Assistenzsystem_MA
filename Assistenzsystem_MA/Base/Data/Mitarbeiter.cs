@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA.Base.Data
 {
+    using System;
     class Mitarbeiter
     {
         public String Name { get; private set; }

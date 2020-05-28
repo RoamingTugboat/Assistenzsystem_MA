@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Assistenzsystem_MA.Base.Args;
+using Assistenzsystem_MA.Base.Data;
+using System;
 using System.Collections.Generic;
 
-namespace Assistenzsystem_MA
+namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
+
     class Medienfilter
     {
         public EventHandler<FilteredSchrittArgs> OnFilteredSchritt;
@@ -12,7 +15,7 @@ namespace Assistenzsystem_MA
 
         public Medienfilter()
         {
-            
+
             Mitarbeiterdatenbank = generateDefaultDatenbank();
             FilterStrategy = new TextOnlyStrategy();
 

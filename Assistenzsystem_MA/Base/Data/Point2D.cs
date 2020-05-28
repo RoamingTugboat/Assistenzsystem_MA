@@ -1,4 +1,4 @@
-﻿namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA.Base.Data
 {
     class Point2D
     {

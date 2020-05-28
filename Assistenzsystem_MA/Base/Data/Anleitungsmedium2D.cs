@@ -1,4 +1,4 @@
-﻿namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA.Base.Data
 {
     abstract class Anleitungsmedium2D : Anleitungsmedium
     {

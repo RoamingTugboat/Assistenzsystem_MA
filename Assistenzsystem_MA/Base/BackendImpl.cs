@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Assistenzsystem_MA.Base.Args;
+using Assistenzsystem_MA.Base.Components.Adaptiv;
+using Assistenzsystem_MA.Base.Components.Anleitung;
+using System;
 
-namespace Assistenzsystem_MA
+namespace Assistenzsystem_MA.Base
 {
     class BackendImpl
     {
@@ -35,7 +38,8 @@ namespace Assistenzsystem_MA
 
         void broadcastSchrittMedia(object sender, FilteredSchrittArgs e)
         {
-            foreach (var medium in e.FilteredAnleitungsschritt.Anleitungsmedia) {
+            foreach (var medium in e.FilteredAnleitungsschritt.Anleitungsmedia)
+            {
                 OnSendingMedia?.Invoke(this, new MediaArgs(medium));
             }
         }

@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA.Base.Data
 {
+    using System;
     class Text2D : Anleitungsmedium2D
     {
         public String Content { get; private set; }
@@ -12,7 +11,7 @@ namespace Assistenzsystem_MA
 
         public override string ToString()
         {
-            return "\""+Content + "\" at " + Position;
+            return "\"" + Content + "\" at " + Position;
         }
     }
 }

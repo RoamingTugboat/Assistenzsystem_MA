@@ -36,27 +36,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Anleitung.cs" />
-    <Compile Include="MediaArgs.cs" />
-    <Compile Include="FilteredAnleitungsschritt.cs" />
-    <Compile Include="FilteredSchrittArgs.cs" />
-    <Compile Include="AnleitungChangedArgs.cs" />
-    <Compile Include="Anleitungsmedium3D.cs" />
-    <Compile Include="Anleitungsmedium2D.cs" />
-    <Compile Include="Anleitungsmedium.cs" />
-    <Compile Include="Anleitungsschritt.cs" />
-    <Compile Include="Anleitungszustand.cs" />
-    <Compile Include="BackendImpl.cs" />
-    <Compile Include="TextOnlyStrategy.cs" />
-    <Compile Include="FilterStrategy.cs" />
-    <Compile Include="Point3D.cs" />
-    <Compile Include="Point2D.cs" />
-    <Compile Include="Text2D.cs" />
-    <Compile Include="Bild2D.cs" />
+    <Compile Include="Base\Data\Anleitung.cs" />
+    <Compile Include="Base\Args\MediaArgs.cs" />
+    <Compile Include="Base\Data\FilteredAnleitungsschritt.cs" />
+    <Compile Include="Base\Args\FilteredSchrittArgs.cs" />
+    <Compile Include="Base\Args\AnleitungChangedArgs.cs" />
+    <Compile Include="Base\Data\Anleitungsmedium3D.cs" />
+    <Compile Include="Base\Data\Anleitungsmedium2D.cs" />
+    <Compile Include="Base\Data\Anleitungsmedium.cs" />
+    <Compile Include="Base\Data\Anleitungsschritt.cs" />
+    <Compile Include="Base\Components\Anleitung\Anleitungszustand.cs" />
+    <Compile Include="Base\BackendImpl.cs" />
+    <Compile Include="Base\Components\Adaptiv\TextOnlyStrategy.cs" />
+    <Compile Include="Base\Components\Adaptiv\FilterStrategy.cs" />
+    <Compile Include="Base\Data\Point3D.cs" />
+    <Compile Include="Base\Data\Point2D.cs" />
+    <Compile Include="Base\Data\Text2D.cs" />
+    <Compile Include="Base\Data\Bild2D.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Medienfilter.cs" />
-    <Compile Include="Mitarbeiter.cs" />
-    <Compile Include="Mitarbeiterdatenbank.cs" />
+    <Compile Include="Base\Components\Adaptiv\Medienfilter.cs" />
+    <Compile Include="Base\Data\Mitarbeiter.cs" />
+    <Compile Include="Base\Components\Adaptiv\Mitarbeiterdatenbank.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

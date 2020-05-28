@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Assistenzsystem_MA.Base.Data;
+using System.Collections.Generic;
 
-namespace Assistenzsystem_MA
+namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     class Mitarbeiterdatenbank
     {
