@@ -23,7 +23,7 @@ namespace Assistenzsystem_MA
                 }
                 if (0 <= value && value < Anleitung.Schrittzahl)
                 {
-                    Console.WriteLine("Schritt was " + currentStep + ", changing to " +value);
+                    Console.WriteLine(Anleitung.Name + " war auf Schritt " + currentStep + ", wechselt auf " +value);
                     currentStep = value;
                     OnSchrittChanged?.Invoke(this, new SchrittChangedArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
