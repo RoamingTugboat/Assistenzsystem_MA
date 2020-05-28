@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assistenzsystem_MA
+﻿namespace Assistenzsystem_MA
 {
     abstract class FilterStrategy
     {
@@ -14,6 +7,6 @@ namespace Assistenzsystem_MA
             
         }
 
-        public abstract Anleitungsschritt filter(Anleitungsschritt anleitungsschritt);
+        public abstract FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt);
     }
 }

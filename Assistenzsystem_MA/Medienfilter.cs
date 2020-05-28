@@ -14,7 +14,7 @@ namespace Assistenzsystem_MA
         {
             
             Mitarbeiterdatenbank = generateDefaultDatenbank();
-            FilterStrategy = new FilterStrategy();
+            FilterStrategy = new TextOnlyStrategy();
 
         }
 
@@ -29,11 +29,14 @@ namespace Assistenzsystem_MA
 
         public void receiveSchritt(object sender, SchrittChangedArgs e)
         {
-            var schritt = e.Anleitungsschritt;
-
-
-
-            OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(new FilteredAnleitungsschritt(e.Anleitungsschritt.Name, e.Anleitungsschritt.Anleitungsmedia)));
+            filter(e.Anleitungsschritt);
         }
+
+        void filter(Anleitungsschritt anleitungsschritt)
+        {
+            var filteredSchritt = FilterStrategy.filter(anleitungsschritt);
+            OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(filteredSchritt));
+        }
+
     }
 }

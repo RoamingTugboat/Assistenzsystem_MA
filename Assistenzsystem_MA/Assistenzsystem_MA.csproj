@@ -46,6 +46,7 @@
     <Compile Include="Anleitungsschritt.cs" />
     <Compile Include="Anleitungszustand.cs" />
     <Compile Include="BackendImpl.cs" />
+    <Compile Include="TextOnlyStrategy.cs" />
     <Compile Include="FilterStrategy.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Point2D.cs" />
