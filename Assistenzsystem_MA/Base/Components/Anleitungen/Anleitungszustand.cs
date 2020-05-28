@@ -3,7 +3,7 @@ using Assistenzsystem_MA.Base.Data;
 using System;
 using System.Collections.Generic;
 
-namespace Assistenzsystem_MA.Base.Components.Anleitung
+namespace Assistenzsystem_MA.Base.Components.Anleitungen
 {
     class Anleitungszustand
     {

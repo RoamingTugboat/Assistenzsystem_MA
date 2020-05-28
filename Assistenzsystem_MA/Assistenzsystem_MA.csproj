@@ -36,6 +36,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Data\Assistenzinformationen.cs" />
     <Compile Include="Base\Data\Anleitung.cs" />
     <Compile Include="Base\Args\MediaArgs.cs" />
     <Compile Include="Base\Data\FilteredAnleitungsschritt.cs" />
@@ -45,7 +46,7 @@
     <Compile Include="Base\Data\Anleitungsmedium2D.cs" />
     <Compile Include="Base\Data\Anleitungsmedium.cs" />
     <Compile Include="Base\Data\Anleitungsschritt.cs" />
-    <Compile Include="Base\Components\Anleitung\Anleitungszustand.cs" />
+    <Compile Include="Base\Components\Anleitungen\Anleitungszustand.cs" />
     <Compile Include="Base\BackendImpl.cs" />
     <Compile Include="Base\Components\Adaptiv\TextOnlyStrategy.cs" />
     <Compile Include="Base\Components\Adaptiv\FilterStrategy.cs" />

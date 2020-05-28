@@ -1,6 +1,6 @@
 ﻿using Assistenzsystem_MA.Base.Args;
 using Assistenzsystem_MA.Base.Components.Adaptiv;
-using Assistenzsystem_MA.Base.Components.Anleitung;
+using Assistenzsystem_MA.Base.Components.Anleitungen;
 using System;
 
 namespace Assistenzsystem_MA.Base
