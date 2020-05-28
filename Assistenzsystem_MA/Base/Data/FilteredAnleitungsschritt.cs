@@ -1,7 +1,7 @@
-﻿namespace Assistenzsystem_MA.Base.Data
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Assistenzsystem_MA.Base.Data
+{
     class FilteredAnleitungsschritt : Anleitungsschritt
     {
 
