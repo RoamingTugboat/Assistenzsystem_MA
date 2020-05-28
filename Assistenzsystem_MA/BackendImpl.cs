@@ -11,8 +11,8 @@ namespace Assistenzsystem_MA
 
         public BackendImpl()
         {
-            Medienfilter = new Medienfilter();
             Anleitungszustand = new Anleitungszustand();
+            Medienfilter = new Medienfilter();
             Anleitungszustand.OnSchrittChanged += Medienfilter.receiveSchritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
             Anleitungszustand.changeAnleitung("Lamellenkupplung");

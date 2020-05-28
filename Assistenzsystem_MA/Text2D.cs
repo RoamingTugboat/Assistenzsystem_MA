@@ -10,5 +10,9 @@ namespace Assistenzsystem_MA
             Content = content;
         }
 
+        public override string ToString()
+        {
+            return "\""+Content + "\" at " + Position;
+        }
     }
 }
