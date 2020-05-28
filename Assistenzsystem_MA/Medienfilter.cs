@@ -8,7 +8,7 @@ namespace Assistenzsystem_MA
         public EventHandler<FilteredSchrittArgs> OnFilteredSchritt;
 
         Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
-        public FilterStrategy FilterStrategy { get; private set; }
+        FilterStrategy FilterStrategy { get; set; }
 
         public Medienfilter()
         {

@@ -7,8 +7,8 @@ namespace Assistenzsystem_MA
     {
         public EventHandler<SchrittChangedArgs> OnSchrittChanged;
 
-        public List<Anleitung> Anleitungen { get; private set; }
-        public Anleitung CurrentAnleitung { get; private set; }
+        public List<Anleitung> Anleitungsdatenbank { get; private set; }
+        public Anleitung Anleitung { get; private set; }
         int currentStep;
         public int CurrentStep
         {
@@ -17,31 +17,29 @@ namespace Assistenzsystem_MA
             }
             set
             {
-                if (CurrentAnleitung == null)
+                if (Anleitung == null)
                 {
                     throw new Exception("Anleitung ist auf null, kann deshalb schritt nicht aendern");
                 }
-                if (0 <= value && value < CurrentAnleitung.Schrittzahl)
+                if (0 <= value && value < Anleitung.Schrittzahl)
                 {
                     currentStep = value;
-                    OnSchrittChanged.Invoke(this, new SchrittChangedArgs(CurrentAnleitung.Anleitungsschritts[currentStep]));
+                    OnSchrittChanged?.Invoke(this, new SchrittChangedArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
                 else
                 {
-                    Console.WriteLine("Neuer schritt soll #" + value + " sein aber die Anleitung hat nur " + CurrentAnleitung.Schrittzahl + " Schritte");
+                    Console.WriteLine("Neuer schritt soll #" + value + " sein aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte");
                 }
             }
         }
 
         public Anleitungszustand()
         {
-            Anleitungen = new List<Anleitung>();
-            CurrentAnleitung = new Anleitung("Leere Anleitung", new List<Anleitungsschritt>());
-            CurrentStep = 0;
-            initTestAnleitung();
+            Anleitungsdatenbank = new List<Anleitung>();
+            Anleitungsdatenbank.Add(generateTestAnleitung());
         }
 
-        void initTestAnleitung()
+        Anleitung generateTestAnleitung()
         {
             var Schritt1 = new Anleitungsschritt("Schritt1", new List<Anleitungsmedium>{
                 new Text2D(new Point2D(0.5f,0.5f),"Schmeiss den Kupplungskorb auf den Tisch")
@@ -61,16 +59,16 @@ namespace Assistenzsystem_MA
 
             var lamellenkupplungsanleitung = new Anleitung("Lamellenkupplung", new List<Anleitungsschritt> { Schritt1, Schritt2, Schritt3, Schritt4 });
 
-            this.Anleitungen.Add(lamellenkupplungsanleitung);
+            return lamellenkupplungsanleitung;
         }
 
         public void changeAnleitung(string newAnleitungName)
         {
-            foreach (var anleitung in this.Anleitungen)
+            foreach (var anleitung in this.Anleitungsdatenbank)
             {
                 if(anleitung.Name.Equals(newAnleitungName))
                 {
-                    CurrentAnleitung = anleitung;
+                    Anleitung = anleitung;
                     CurrentStep = 0;
                     return;
                 }
@@ -78,12 +76,12 @@ namespace Assistenzsystem_MA
             throw new Exception("Anleitung mit diesem Namen existiert nicht: "+newAnleitungName);
         }
 
-        public void flipForward(object sender, EventArgs e)
+        public void flipForward()
         {
             CurrentStep += 1;
         }
 
-        public void flipBack(object sender, EventArgs e)
+        public void flipBackward()
         {
             CurrentStep -= 1;
         }
