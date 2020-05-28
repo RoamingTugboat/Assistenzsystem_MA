@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistenzsystem_MA", "Assistenzsystem_MA\Assistenzsystem_MA.csproj", "{C9D9D8A5-554B-4449-840C-30B5F964BBFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9D9D8A5-554B-4449-840C-30B5F964BBFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D9D8A5-554B-4449-840C-30B5F964BBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D9D8A5-554B-4449-840C-30B5F964BBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D9D8A5-554B-4449-840C-30B5F964BBFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C37AB5E1-89A5-4F56-8D37-F92D3F2DEC3D}
+	EndGlobalSection
+EndGlobal
