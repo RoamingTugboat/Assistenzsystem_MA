@@ -3,11 +3,11 @@ using System;
 
 namespace Assistenzsystem_MA.Base.Args
 {
-    class SchrittChangedArgs : EventArgs
+    class AnleitungsschrittArgs : EventArgs
     {
         public Anleitungsschritt Anleitungsschritt { get; private set; }
 
-        public SchrittChangedArgs(Anleitungsschritt anleitungsschritt)
+        public AnleitungsschrittArgs(Anleitungsschritt anleitungsschritt)
         {
             Anleitungsschritt = anleitungsschritt;
         }

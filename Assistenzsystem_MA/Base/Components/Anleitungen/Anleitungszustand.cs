@@ -7,7 +7,8 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
 {
     class Anleitungszustand
     {
-        public EventHandler<SchrittChangedArgs> OnSchrittChanged;
+        public EventHandler<AnleitungsschrittArgs> OnAnleitungsschrittChanged;
+        public EventHandler<AnleitungArgs> OnAnleitungChanged;
 
         public List<Anleitung> Anleitungsdatenbank { get; private set; }
         public Anleitung Anleitung { get; private set; }
@@ -28,7 +29,7 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                 {
                     Console.WriteLine(Anleitung.Name + " war auf Schritt " + currentStep + ", wechselt auf " + value);
                     currentStep = value;
-                    OnSchrittChanged?.Invoke(this, new SchrittChangedArgs(Anleitung.Anleitungsschritts[currentStep]));
+                    OnAnleitungsschrittChanged?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
                 else
                 {
@@ -74,10 +75,16 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                     Anleitung = anleitung;
                     Console.WriteLine("Changed Anleitung to \""+anleitung.Name+"\".");
                     CurrentStep = 0;
+                    OnAnleitungChanged?.Invoke(this, new AnleitungArgs(Anleitung));
                     return;
                 }
             }
             throw new Exception("Anleitung mit diesem Namen existiert nicht: " + newAnleitungName);
+        }
+
+        public void flipForward(object sender, EventArgs e)
+        {
+            flipForward();
         }
 
         public void flipForward()

@@ -1,6 +1,7 @@
 ﻿using Assistenzsystem_MA.Base.Args;
 using Assistenzsystem_MA.Base.Components.Adaptiv;
 using Assistenzsystem_MA.Base.Components.Anleitungen;
+using Assistenzsystem_MA.Base.Components.Kamera;
 using System;
 
 namespace Assistenzsystem_MA.Base
@@ -11,13 +12,27 @@ namespace Assistenzsystem_MA.Base
 
         Medienfilter Medienfilter;
         Anleitungszustand Anleitungszustand;
+        Schritttracker Schritttracker;
+        Bilderkennung Bilderkennung;
 
         public BackendImpl()
         {
             Anleitungszustand = new Anleitungszustand();
             Medienfilter = new Medienfilter();
-            Anleitungszustand.OnSchrittChanged += Medienfilter.receiveSchritt;
+            Schritttracker = new Schritttracker();
+            Bilderkennung = new Bilderkennung();
+
+            // Logic
+            Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.receiveSchritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
+
+            // Info
+            Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schritttracker.setCurrentMitarbeiter;
+            Anleitungszustand.OnAnleitungChanged += Schritttracker.setCurrentAnleitung;
+            Anleitungszustand.OnAnleitungsschrittChanged += Schritttracker.setCurrentAnleitungsschritt;
+            Bilderkennung.OnWrong += Schritttracker.incrementVersuchszahl;
+            Bilderkennung.OnRight += Schritttracker.submitStep;
+            Bilderkennung.OnRight += Anleitungszustand.flipForward; // Careful: These last two steps need to happen in this order so the current step always knows its ZeitSekunden and then AFTERWARDS the manual flips forward, otherwise the Data will be incomplete
         }
 
         public void changeAnleitung(string newAnleitungName)

@@ -8,10 +8,10 @@
         //   und niedrigster UG mit nur einem text ist auch nochmal der text gecopypastet, dann mit 0.
         //   Also gibts halt duplicates, aber so ist es einfach. Der basicste text hier existiert dann zB 3 mal, einmal
         //   halt extra fuer jeden moeglichen UG in diesem Schritt.
-        public int Unterstuetzungsgrad { get; set; }
+        public int Schwierigkeitsgrad { get; set; }
         public Assistenzinformationen()
         {
-            Unterstuetzungsgrad = 0;
+            Schwierigkeitsgrad = 0;
         }
 
     }

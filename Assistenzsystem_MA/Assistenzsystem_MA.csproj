@@ -36,12 +36,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Args\ZeitSekundenArgs.cs" />
+    <Compile Include="Base\Args\AnleitungArgs.cs" />
+    <Compile Include="Base\Args\MitarbeiterArgs.cs" />
+    <Compile Include="Base\Components\Adaptiv\Schritttracker.cs" />
+    <Compile Include="Base\Components\Kamera\Bilderkennung.cs" />
     <Compile Include="Base\Data\Assistenzinformationen.cs" />
     <Compile Include="Base\Data\Anleitung.cs" />
     <Compile Include="Base\Args\MediaArgs.cs" />
     <Compile Include="Base\Data\FilteredAnleitungsschritt.cs" />
     <Compile Include="Base\Args\FilteredSchrittArgs.cs" />
-    <Compile Include="Base\Args\AnleitungChangedArgs.cs" />
+    <Compile Include="Base\Args\AnleitungsschrittArgs.cs" />
     <Compile Include="Base\Data\Anleitungsmedium3D.cs" />
     <Compile Include="Base\Data\Anleitungsmedium2D.cs" />
     <Compile Include="Base\Data\Anleitungsmedium.cs" />
@@ -50,8 +55,10 @@
     <Compile Include="Base\BackendImpl.cs" />
     <Compile Include="Base\Components\Adaptiv\TextOnlyStrategy.cs" />
     <Compile Include="Base\Components\Adaptiv\FilterStrategy.cs" />
+    <Compile Include="Base\Data\Mitarbeiterinformationen.cs" />
     <Compile Include="Base\Data\Point3D.cs" />
     <Compile Include="Base\Data\Point2D.cs" />
+    <Compile Include="Base\Data\Schrittbearbeitunginfos.cs" />
     <Compile Include="Base\Data\Text2D.cs" />
     <Compile Include="Base\Data\Bild2D.cs" />
     <Compile Include="Launcher.cs" />

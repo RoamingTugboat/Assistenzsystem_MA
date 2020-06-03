@@ -9,8 +9,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
     class Medienfilter
     {
         public EventHandler<FilteredSchrittArgs> OnFilteredSchritt;
-
-        Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
+        public Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
         FilterStrategy FilterStrategy { get; set; }
 
         public Medienfilter()
@@ -30,7 +29,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             });
         }
 
-        public void receiveSchritt(object sender, SchrittChangedArgs e)
+        public void receiveSchritt(object sender, AnleitungsschrittArgs e)
         {
             filter(e.Anleitungsschritt);
         }
