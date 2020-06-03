@@ -14,7 +14,7 @@ namespace Assistenzsystem_MA
         {
             backend = new BackendImpl();
             backend.OnSendingMedia += printMedium;
-            Console.WriteLine("Welcome. This program loads a default Manual (Lamellenkupplung). Available commands: listall, forward, backward.");
+            Console.WriteLine("Welcome. This program loads a default Manual (Lamellenkupplung). Available commands: listall, forward, backward, changeto <Anleitungsname>.");
             unserInputParseLoop();
         }
 
@@ -34,6 +34,14 @@ namespace Assistenzsystem_MA
                 else if (line == "backward")
                 {
                     backend.flipBackward();
+                }
+                else if (line.StartsWith("changeto "))
+                {
+                    var remainingLine = line.Substring(9);
+                    backend.changeAnleitung(remainingLine);
+                }
+                else {
+                    Console.WriteLine("Can't recognize command");
                 }
             }
         }

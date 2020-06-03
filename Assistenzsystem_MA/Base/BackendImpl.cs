@@ -18,7 +18,6 @@ namespace Assistenzsystem_MA.Base
             Medienfilter = new Medienfilter();
             Anleitungszustand.OnSchrittChanged += Medienfilter.receiveSchritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
-            Anleitungszustand.changeAnleitung("Lamellenkupplung");
         }
 
         public void changeAnleitung(string newAnleitungName)

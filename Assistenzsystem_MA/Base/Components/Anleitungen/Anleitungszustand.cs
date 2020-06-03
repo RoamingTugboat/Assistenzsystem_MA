@@ -18,7 +18,7 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
             {
                 return currentStep;
             }
-            set
+            private set
             {
                 if (Anleitung == null)
                 {
@@ -32,15 +32,14 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                 }
                 else
                 {
-                    Console.WriteLine("Neuer schritt soll #" + value + " sein aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte");
+                    Console.WriteLine("Neuer Schritt soll #" + value + " sein, aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte");
                 }
             }
         }
 
         public Anleitungszustand()
         {
-            Anleitungsdatenbank = new List<Anleitung>();
-            Anleitungsdatenbank.Add(generateTestAnleitung());
+            Anleitungsdatenbank = new List<Anleitung>() { generateTestAnleitung() };
         }
 
         Anleitung generateTestAnleitung()
@@ -73,6 +72,7 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                 if (anleitung.Name.Equals(newAnleitungName))
                 {
                     Anleitung = anleitung;
+                    Console.WriteLine("Changed Anleitung to \""+anleitung.Name+"\".");
                     CurrentStep = 0;
                     return;
                 }
