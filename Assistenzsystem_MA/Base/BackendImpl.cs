@@ -26,7 +26,7 @@ namespace Assistenzsystem_MA.Base
             Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.receiveSchritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
 
-            // Info
+            // Schrittinfo
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schritttracker.setCurrentMitarbeiter;
             Anleitungszustand.OnAnleitungChanged += Schritttracker.setCurrentAnleitung;
             Anleitungszustand.OnAnleitungsschrittChanged += Schritttracker.setCurrentAnleitungsschritt;
@@ -38,6 +38,11 @@ namespace Assistenzsystem_MA.Base
         public void changeAnleitung(string newAnleitungName)
         {
             Anleitungszustand.changeAnleitung(newAnleitungName);
+        }
+
+        public void recognizeImageAsRight()
+        {
+            Bilderkennung.recognizeImageAsRight();
         }
 
         public void flipForward()
@@ -65,7 +70,6 @@ namespace Assistenzsystem_MA.Base
                 Console.WriteLine(anleitung.Name);
             }
         }
-
 
     }
 }
