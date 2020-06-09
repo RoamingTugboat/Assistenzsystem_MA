@@ -23,9 +23,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         Mitarbeiterdatenbank generateDefaultDatenbank()
         {
             return new Mitarbeiterdatenbank(new List<Mitarbeiter>() {
-                new Mitarbeiter("ens1dia"),
-                new Mitarbeiter("Banderas"),
-                new Mitarbeiter("-*postmann*-")
+                new Mitarbeiter("Jake"),
+                new Mitarbeiter("Ari")
             });
         }
 

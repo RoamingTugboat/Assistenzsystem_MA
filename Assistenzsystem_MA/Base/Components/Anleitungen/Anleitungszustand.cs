@@ -7,8 +7,9 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
 {
     class Anleitungszustand
     {
+        public EventHandler<AnleitungArgs> OnAnleitungSet;
         public EventHandler<AnleitungsschrittArgs> OnAnleitungsschrittChanged;
-        public EventHandler<AnleitungArgs> OnAnleitungChanged;
+        public EventHandler<AnleitungArgs> OnAnleitungUnloaded;
 
         public List<Anleitung> Anleitungsdatenbank { get; private set; }
         public Anleitung Anleitung { get; private set; }
@@ -31,9 +32,11 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                     currentStep = value;
                     OnAnleitungsschrittChanged?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
-                else
+                else if (Anleitung.Schrittzahl <= value)
                 {
-                    Console.WriteLine("Neuer Schritt soll #" + value + " sein, aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte");
+                    Console.WriteLine("Neuer Schritt soll #" + value + " sein, aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte. Anleitung ist fertig und wird entfernt.");
+                    var unloadedAnleitung = unloadAnleitung();
+                    OnAnleitungUnloaded?.Invoke(this, new AnleitungArgs(unloadedAnleitung));
                 }
             }
         }
@@ -75,11 +78,18 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                     Anleitung = anleitung;
                     Console.WriteLine("Changed Anleitung to \""+anleitung.Name+"\".");
                     CurrentStep = 0;
-                    OnAnleitungChanged?.Invoke(this, new AnleitungArgs(Anleitung));
+                    OnAnleitungSet?.Invoke(this, new AnleitungArgs(Anleitung));
                     return;
                 }
             }
             throw new Exception("Anleitung mit diesem Namen existiert nicht: " + newAnleitungName);
+        }
+
+        public Anleitung unloadAnleitung()
+        {
+            var unloadedAnleitung = Anleitung;
+            Anleitung = null;
+            return unloadedAnleitung;
         }
 
         public void flipForward(object sender, EventArgs e)

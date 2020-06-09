@@ -23,6 +23,11 @@
 			return Mitarbeitername != "" && Anleitungsname != "" && Anleitungsschrittname != "" && Versuchszahl >= 1 && ZeitSekunden >= -1;
 		}
 
-	}
+        public override string ToString()
+        {
+            return Mitarbeitername+","+Anleitungsname + "," +Anleitungsschrittname + "," +Versuchszahl + "," +ZeitSekunden;
+        }
+
+    }
 
 }

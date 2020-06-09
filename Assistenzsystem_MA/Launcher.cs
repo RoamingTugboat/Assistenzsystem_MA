@@ -14,7 +14,7 @@ namespace Assistenzsystem_MA
         {
             backend = new BackendImpl();
             backend.OnSendingMedia += printMedium;
-            Console.WriteLine("Welcome. This program loads a default Manual (Lamellenkupplung). Available commands: listall, forward, backward, changeto <Anleitungsname>, forcecam.");
+            Console.WriteLine("Welcome. This program loads a default Manual (Lamellenkupplung). Available commands: listall, forward, backward, cha <Anleitungsname>, chm <Mitarbeitername>, forcecam.");
             unserInputParseLoop();
         }
 
@@ -35,10 +35,15 @@ namespace Assistenzsystem_MA
                 {
                     backend.flipBackward();
                 }
-                else if (line.StartsWith("changeto "))
+                else if (line.StartsWith("cha "))
                 {
-                    var remainingLine = line.Substring(9);
+                    var remainingLine = line.Substring(4);
                     backend.changeAnleitung(remainingLine);
+                }
+                else if (line.StartsWith("chm "))
+                {
+                    var remainingLine = line.Substring(4);
+                    backend.changeMitarbeiter(remainingLine);
                 }
                 else if (line == "forceCam")
                 {

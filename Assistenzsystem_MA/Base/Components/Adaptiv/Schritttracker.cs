@@ -59,6 +59,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             if (currentSchritt.isFilledInProperly())
             {
                 Schrittbearbeitunginfos.Add(currentSchritt);
+                Console.WriteLine("Schritt gespeichert: "+currentSchritt);
                 refreshTimestamp();
             }
             else

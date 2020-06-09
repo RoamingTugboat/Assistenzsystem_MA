@@ -28,16 +28,23 @@ namespace Assistenzsystem_MA.Base
 
             // Schrittinfo
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schritttracker.setCurrentMitarbeiter;
-            Anleitungszustand.OnAnleitungChanged += Schritttracker.setCurrentAnleitung;
+            Anleitungszustand.OnAnleitungSet += Schritttracker.setCurrentAnleitung;
             Anleitungszustand.OnAnleitungsschrittChanged += Schritttracker.setCurrentAnleitungsschritt;
             Bilderkennung.OnWrong += Schritttracker.incrementVersuchszahl;
             Bilderkennung.OnRight += Schritttracker.submitStep;
             Bilderkennung.OnRight += Anleitungszustand.flipForward; // Careful: These last two steps need to happen in this order so the current step always knows its ZeitSekunden and then AFTERWARDS the manual flips forward, otherwise the Data will be incomplete
+
+            Anleitungszustand.OnAnleitungUnloaded += alertUnload;
         }
 
         public void changeAnleitung(string newAnleitungName)
         {
             Anleitungszustand.changeAnleitung(newAnleitungName);
+        }
+
+        public void changeMitarbeiter(string newMitarbeiterName)
+        {
+            Medienfilter.Mitarbeiterdatenbank.changeMitarbeiter(newMitarbeiterName);
         }
 
         public void recognizeImageAsRight()
@@ -69,6 +76,11 @@ namespace Assistenzsystem_MA.Base
             {
                 Console.WriteLine(anleitung.Name);
             }
+        }
+
+        public void alertUnload(object sender, AnleitungArgs e)
+        {
+            Console.WriteLine("Anleitung "+e.Anleitung.Name+" wurde entfernt, bitte mit cha neue Anleitung setzen.");
         }
 
     }
