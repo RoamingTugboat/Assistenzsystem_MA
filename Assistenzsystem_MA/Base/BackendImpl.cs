@@ -12,29 +12,27 @@ namespace Assistenzsystem_MA.Base
 
         Medienfilter Medienfilter;
         Anleitungszustand Anleitungszustand;
-        Schritttracker Schritttracker;
+        Schrittdatenbank Schrittdatenbank;
         Bilderkennung Bilderkennung;
 
         public BackendImpl()
         {
             Anleitungszustand = new Anleitungszustand();
             Medienfilter = new Medienfilter();
-            Schritttracker = new Schritttracker();
+            Schrittdatenbank = new Schrittdatenbank();
             Bilderkennung = new Bilderkennung();
 
             // Logic
             Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.receiveSchritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
+            Bilderkennung.OnWrong += Schrittdatenbank.incrementVersuchszahl;
+            Bilderkennung.OnRight += Anleitungszustand.flipForward;
+            Anleitungszustand.OnAnleitungUnloaded += alertUnload;
 
             // Schrittinfo
-            Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schritttracker.setCurrentMitarbeiter;
-            Anleitungszustand.OnAnleitungSet += Schritttracker.setCurrentAnleitung;
-            Anleitungszustand.OnAnleitungsschrittChanged += Schritttracker.setCurrentAnleitungsschritt;
-            Bilderkennung.OnWrong += Schritttracker.incrementVersuchszahl;
-            Bilderkennung.OnRight += Schritttracker.submitStep;
-            Bilderkennung.OnRight += Anleitungszustand.flipForward; // Careful: These last two steps need to happen in this order so the current step always knows its ZeitSekunden and then AFTERWARDS the manual flips forward, otherwise the Data will be incomplete
-
-            Anleitungszustand.OnAnleitungUnloaded += alertUnload;
+            Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
+            Anleitungszustand.OnAnleitungSet += Schrittdatenbank.setCurrentAnleitung;
+            Anleitungszustand.OnAnleitungsschrittChanged += Schrittdatenbank.setCurrentAnleitungsschritt;
         }
 
         public void changeAnleitung(string newAnleitungName)
@@ -49,6 +47,7 @@ namespace Assistenzsystem_MA.Base
 
         public void recognizeImageAsRight()
         {
+            Schrittdatenbank.submitStep();
             Bilderkennung.recognizeImageAsRight();
         }
 
@@ -83,5 +82,21 @@ namespace Assistenzsystem_MA.Base
             Console.WriteLine("Anleitung "+e.Anleitung.Name+" wurde entfernt, bitte mit cha neue Anleitung setzen.");
         }
 
+        public void saveSchrittdatenbank()
+        {
+            Schrittdatenbank.saveToFile("schrittdaten.xml");
+            Console.WriteLine("Saved schrittdaten");
+        }
+
+        public void loadSchrittdatenbank()
+        {
+            Schrittdatenbank.loadFromFile("schrittdaten.xml");
+            Console.WriteLine("Loaded schrittdaten");
+        }
+
+        public void printSchrittdatenbank()
+        {
+            Schrittdatenbank.print();
+        }
     }
 }

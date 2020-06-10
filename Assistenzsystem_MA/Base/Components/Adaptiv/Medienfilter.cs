@@ -14,10 +14,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 
         public Medienfilter()
         {
-
             Mitarbeiterdatenbank = generateDefaultDatenbank();
             FilterStrategy = new TextOnlyStrategy();
-
         }
 
         Mitarbeiterdatenbank generateDefaultDatenbank()

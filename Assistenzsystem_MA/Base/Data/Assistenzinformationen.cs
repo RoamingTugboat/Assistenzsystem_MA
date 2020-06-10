@@ -1,6 +1,6 @@
 ﻿namespace Assistenzsystem_MA.Base.Data
 {
-    class Assistenzinformationen
+    public class Assistenzinformationen
     {
         // Einfache:
         //   Medien, die zusammengehoeren (zB 2 Texte und ein Video fuer einen Schritt) haben einfach den selben wert,

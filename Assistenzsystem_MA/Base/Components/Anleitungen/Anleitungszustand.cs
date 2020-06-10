@@ -24,7 +24,8 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
             {
                 if (Anleitung == null)
                 {
-                    throw new Exception("Anleitung ist auf null, kann deshalb schritt nicht aendern");
+                    Console.WriteLine("Anleitung ist auf null, kann deshalb schritt nicht aendern");
+                    return;
                 }
                 if (0 <= value && value < Anleitung.Schrittzahl)
                 {
@@ -60,7 +61,7 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                 new Text2D(new Point2D(0.5f, 0.5f), "Und schmeiss das in den Korb volle Kanne rein damit das haelt"),
             });
 
-            var Schritt4 = new Anleitungsschritt("Schritt3", new List<Anleitungsmedium>{
+            var Schritt4 = new Anleitungsschritt("Schritt4", new List<Anleitungsmedium>{
                 new Text2D(new Point2D(0.5f, 0.5f), "Voll gut")
             });
 

@@ -1,10 +1,15 @@
 ﻿namespace Assistenzsystem_MA.Base.Data
 {
-    class Point2D
+    public class Point2D
     {
 
-        public float X { get; private set; }
-        public float Y { get; private set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+
+        public Point2D()
+        {
+
+        }
 
         public Point2D(float x, float y)
         {

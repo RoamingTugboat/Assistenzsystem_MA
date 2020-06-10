@@ -1,8 +1,8 @@
 ﻿namespace Assistenzsystem_MA.Base.Data
 {
-    abstract class Anleitungsmedium
+    public abstract class Anleitungsmedium
     {
-        public Assistenzinformationen Assistenzinformationen { get; private set; }
+        public Assistenzinformationen Assistenzinformationen { get; set; }
 
         public Anleitungsmedium()
         {

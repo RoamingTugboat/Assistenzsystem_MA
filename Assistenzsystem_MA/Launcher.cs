@@ -14,7 +14,8 @@ namespace Assistenzsystem_MA
         {
             backend = new BackendImpl();
             backend.OnSendingMedia += printMedium;
-            Console.WriteLine("Welcome. This program loads a default Manual (Lamellenkupplung). Available commands: listall, forward, backward, cha <Anleitungsname>, chm <Mitarbeitername>, forcecam.");
+            Console.WriteLine("Welcome.");
+            Console.WriteLine("Available commands: listall, fr, bw, cha <Anleitungsname>, chm <Mitarbeitername>, forcecam, rr");
             unserInputParseLoop();
         }
 
@@ -27,11 +28,11 @@ namespace Assistenzsystem_MA
                 {
                     backend.listAnleitungen();
                 }
-                else if (line == "forward")
+                else if (line == "fw")
                 {
                     backend.flipForward();
                 }
-                else if (line == "backward")
+                else if (line == "bw")
                 {
                     backend.flipBackward();
                 }
@@ -45,9 +46,26 @@ namespace Assistenzsystem_MA
                     var remainingLine = line.Substring(4);
                     backend.changeMitarbeiter(remainingLine);
                 }
-                else if (line == "forceCam")
+                else if (line == "forcecam")
                 {
                     backend.recognizeImageAsRight();
+                }
+                else if (line == "rr")
+                {
+                    backend.changeMitarbeiter("Jake");
+                    backend.changeAnleitung("Lamellenkupplung");
+                }
+                else if (line == "save")
+                {
+                    backend.saveSchrittdatenbank();
+                }
+                else if (line == "load")
+                {
+                    backend.loadSchrittdatenbank();
+                }
+                else if (line == "print")
+                {
+                    backend.printSchrittdatenbank();
                 }
                 else
                 {

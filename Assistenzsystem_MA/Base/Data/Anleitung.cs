@@ -2,10 +2,10 @@
 
 namespace Assistenzsystem_MA.Base.Data
 {
-    class Anleitung
+    public class Anleitung
     {
-        public string Name { get; private set; }
-        public List<Anleitungsschritt> Anleitungsschritts { get; private set; }
+        public string Name { get; set; }
+        public List<Anleitungsschritt> Anleitungsschritts { get; set; }
         public int Schrittzahl
         {
             get
@@ -14,10 +14,20 @@ namespace Assistenzsystem_MA.Base.Data
             }
         }
 
+        public Anleitung()
+        {
+
+        }
+
         public Anleitung(string name, List<Anleitungsschritt> anleitungsschritts)
         {
             Name = name;
             Anleitungsschritts = anleitungsschritts;
+        }
+
+        public override string ToString()
+        {
+            return Name+"("+Anleitungsschritts.Count+" Steps)";
         }
 
     }

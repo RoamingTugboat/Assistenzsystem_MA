@@ -2,41 +2,40 @@
 using Assistenzsystem_MA.Base.Data;
 using System.Collections.Generic;
 using Assistenzsystem_MA.Base.Args;
+using System.Xml.Serialization;
+using System.IO;
+using System.Globalization;
 
 namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
-    class Schritttracker
+    class Schrittdatenbank
     {
-        List<Schrittbearbeitunginfos> Schrittbearbeitunginfos;
-
+        List<Schrittbearbeitunginfos> Schrittbearbeitunginfos { get; set; }
         public Schrittbearbeitunginfos currentSchritt { get; private set; }
         public long TimestampNewImageLoadedSeconds { get; private set; }
 
-        public Schritttracker()
+        public Schrittdatenbank()
         {
-            Schrittbearbeitunginfos = generateSchrittbearbeitungsInfos();
+            loadFromFile("schrittdaten.xml");
             currentSchritt = new Schrittbearbeitunginfos();
             TimestampNewImageLoadedSeconds = 0;
         }
 
-        List<Schrittbearbeitunginfos> generateSchrittbearbeitungsInfos()
-        {
-            return new List<Schrittbearbeitunginfos>(); // Todo: Import from file
-        }
 
         void setCurrentMitarbeiter(Mitarbeiter mitarbeiter)
         {
-            currentSchritt.Mitarbeitername = mitarbeiter.Name;
+            currentSchritt.Mitarbeiter = mitarbeiter;
         }
 
         void setCurrentAnleitung(Anleitung anleitung)
         {
-            currentSchritt.Anleitungsname = anleitung.Name;
+            currentSchritt.Anleitung = anleitung;
         }
 
         void setCurrentAnleitungsschritt(Anleitungsschritt anleitungsschritt)
         {
-            currentSchritt.Anleitungsschrittname = anleitungsschritt.Name;
+            currentSchritt.Anleitungsschritt = anleitungsschritt;
+            refreshLoadtimeTimestamp();
         }
 
         void incrementCurrentVersuchszahl()
@@ -49,8 +48,10 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             currentSchritt.ZeitSekunden = zeitSekunden;
         }
 
-        void submitStep()
+        public void submitStep()
         {
+            currentSchritt.Timestamp = DateTime.Now;
+
             // Log time step spent active
             var nowSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // System time in seconds
             var secondsPassedSinceImageWasLoaded = nowSeconds - TimestampNewImageLoadedSeconds;
@@ -58,17 +59,16 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 
             if (currentSchritt.isFilledInProperly())
             {
-                Schrittbearbeitunginfos.Add(currentSchritt);
+                Schrittbearbeitunginfos.Add(currentSchritt.Copy());
                 Console.WriteLine("Schritt gespeichert: "+currentSchritt);
-                refreshTimestamp();
             }
             else
             {
-                throw new Exception("Konnte Schritt nicht in den Schritttracker schreiben: Werte waren nicht komplett und richtig ausgefuellt.");
+                Console.WriteLine("Konnte Schritt nicht in den Schritttracker schreiben: Werte waren nicht komplett und richtig ausgefuellt");
             }
         }
 
-        void refreshTimestamp()
+        void refreshLoadtimeTimestamp()
         {
             TimestampNewImageLoadedSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // Logs system time in seconds
         }
@@ -82,6 +82,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         {
             setCurrentAnleitung(e.Anleitung);
         }
+
         public void setCurrentAnleitungsschritt(object sender, AnleitungsschrittArgs e)
         {
             setCurrentAnleitungsschritt(e.Anleitungsschritt);
@@ -102,6 +103,32 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             submitStep();
         }
 
+
+        public void saveToFile(string filename)
+        {
+            var serializer = new XmlSerializer(typeof(List<Schrittbearbeitunginfos>));
+            using (var writer = new StreamWriter(filename))
+            {
+                serializer.Serialize(writer, Schrittbearbeitunginfos);
+            }
+        }
+
+        public void loadFromFile(string filename)
+        {
+            var serializer = new XmlSerializer(typeof(List<Schrittbearbeitunginfos>));
+            using (var reader = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                Schrittbearbeitunginfos = (List<Schrittbearbeitunginfos>)serializer.Deserialize(reader);
+            }
+        }
+
+        public void print()
+        {
+            foreach(var schrittinfos in Schrittbearbeitunginfos)
+            {
+                Console.WriteLine(schrittinfos);
+            }
+        }
 
     }
 }

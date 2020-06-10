@@ -40,7 +40,7 @@
     <Compile Include="Base\Args\ZeitSekundenArgs.cs" />
     <Compile Include="Base\Args\AnleitungArgs.cs" />
     <Compile Include="Base\Args\MitarbeiterArgs.cs" />
-    <Compile Include="Base\Components\Adaptiv\Schritttracker.cs" />
+    <Compile Include="Base\Components\Adaptiv\Schrittdatenbank.cs" />
     <Compile Include="Base\Components\Kamera\Bilderkennung.cs" />
     <Compile Include="Base\Data\Assistenzinformationen.cs" />
     <Compile Include="Base\Data\Anleitung.cs" />
@@ -66,6 +66,9 @@
     <Compile Include="Base\Components\Adaptiv\Medienfilter.cs" />
     <Compile Include="Base\Data\Mitarbeiter.cs" />
     <Compile Include="Base\Components\Adaptiv\Mitarbeiterdatenbank.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
