@@ -67,6 +67,11 @@ namespace Assistenzsystem_MA
                 {
                     backend.printSchrittdatenbank();
                 }
+                else if (line == "exit")
+                {
+                    backend.saveSchrittdatenbank();
+                    Environment.Exit(0);
+                }
                 else
                 {
                     Console.WriteLine("Can't recognize command");

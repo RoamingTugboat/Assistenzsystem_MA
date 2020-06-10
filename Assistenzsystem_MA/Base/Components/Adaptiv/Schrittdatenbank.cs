@@ -98,12 +98,6 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             setCurrentZeitSekunden(e.ZeitSekunden);
         }
 
-        public void submitStep(object sender, EventArgs e)
-        {
-            submitStep();
-        }
-
-
         public void saveToFile(string filename)
         {
             var serializer = new XmlSerializer(typeof(List<Schrittbearbeitunginfos>));
@@ -118,7 +112,14 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             var serializer = new XmlSerializer(typeof(List<Schrittbearbeitunginfos>));
             using (var reader = new FileStream(filename, FileMode.OpenOrCreate))
             {
-                Schrittbearbeitunginfos = (List<Schrittbearbeitunginfos>)serializer.Deserialize(reader);
+                if(new FileInfo(filename).Length == 0)
+                {
+                    Schrittbearbeitunginfos = new List<Schrittbearbeitunginfos>();
+                }
+                else
+                {
+                    Schrittbearbeitunginfos = (List<Schrittbearbeitunginfos>)serializer.Deserialize(reader);
+                }
             }
         }
 
