@@ -48,7 +48,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 
         public void setCurrentAnleitung(object sender, AnleitungArgs e)
         {
-            currentSchritt.Anleitung = e.Anleitung);
+            currentSchritt.Anleitung = e.Anleitung;
         }
 
         public void setCurrentAnleitungsschritt(object sender, AnleitungsschrittArgs e)

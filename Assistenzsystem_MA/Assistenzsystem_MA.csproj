@@ -41,6 +41,7 @@
     <Compile Include="Base\Args\AnleitungArgs.cs" />
     <Compile Include="Base\Args\MitarbeiterArgs.cs" />
     <Compile Include="Base\Components\Adaptiv\Schrittdatenbank.cs" />
+    <Compile Include="Base\Components\Adaptiv\PassAllStrategy.cs" />
     <Compile Include="Base\Components\Kamera\Bilderkennung.cs" />
     <Compile Include="Base\Data\Assistenzinformationen.cs" />
     <Compile Include="Base\Data\Anleitung.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="Base\Data\Anleitungsschritt.cs" />
     <Compile Include="Base\Components\Anleitungen\Anleitungszustand.cs" />
     <Compile Include="Base\BackendImpl.cs" />
-    <Compile Include="Base\Components\Adaptiv\TextOnlyStrategy.cs" />
+    <Compile Include="Base\Components\Adaptiv\Text2DOnlyStrategy.cs" />
     <Compile Include="Base\Components\Adaptiv\FilterStrategy.cs" />
     <Compile Include="Base\Data\Mitarbeiterinformationen.cs" />
     <Compile Include="Base\Data\Point3D.cs" />

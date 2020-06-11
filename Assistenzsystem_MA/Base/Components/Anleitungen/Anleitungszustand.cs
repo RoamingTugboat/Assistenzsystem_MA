@@ -49,25 +49,37 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
 
         Anleitung generateTestAnleitung()
         {
-            var Schritt1 = new Anleitungsschritt("Schritt1", new List<Anleitungsmedium>{
-                new Text2D(new Point2D(0.5f,0.5f),"Schmeiss den Kupplungskorb auf den Tisch")
-            });
-
-            var Schritt2 = new Anleitungsschritt("Schritt2", new List<Anleitungsmedium>{
-                new Text2D(new Point2D(0.5f, 0.5f), "Reiss dir ein Kupplungsrad aus dem Schrank"),
-            });
-
-            var Schritt3 = new Anleitungsschritt("Schritt3", new List<Anleitungsmedium>{
-                new Text2D(new Point2D(0.5f, 0.5f), "Und schmeiss das in den Korb volle Kanne rein damit das haelt"),
-            });
-
-            var Schritt4 = new Anleitungsschritt("Schritt4", new List<Anleitungsmedium>{
-                new Text2D(new Point2D(0.5f, 0.5f), "Voll gut")
-            });
-
-            var lamellenkupplungsanleitung = new Anleitung("Lamellenkupplung", new List<Anleitungsschritt> { Schritt1, Schritt2, Schritt3, Schritt4 });
-
-            return lamellenkupplungsanleitung;
+            var Schritt1 = new Anleitungsschritt(
+                "Schritt1",
+                new List<Anleitungsmedium>{
+                    new Text2D(new Point2D(0.5f,0.9f), "Legen Sie einen Kupplungskorb auf den Tisch."),
+                    new Bild2D(new Point2D(0.2f,0.1f), "imagename.jpg")
+                },
+                new Assistenzinformationen(0)
+            );
+            var Schritt2 = new Anleitungsschritt(
+                "Schritt2",
+                new List<Anleitungsmedium>{
+                    new Text2D(new Point2D(0.5f,0.5f), "Nehmen Sie ein Kupplungsrad aus dem Schrank ..."),
+                },
+                new Assistenzinformationen(0)
+            );
+            var Schritt3 = new Anleitungsschritt(
+                "Schritt3",
+                new List<Anleitungsmedium>{
+                    new Text2D(new Point2D(0.5f,0.9f), "... und fuegen sie das Kupplungsrad in den Kupplungskorb ein. Die Korkseite des Rades soll nach oben zeigen."),
+                    new Bild2D(new Point2D(0.5f,0.5f), "imagename.jpg")
+                },
+                new Assistenzinformationen(0)
+            );
+            var Schritt4 = new Anleitungsschritt(
+                "Schritt4",
+                new List<Anleitungsmedium>{
+                    new Text2D(new Point2D(0.5f,0.5f), "Das Rad liegt jetzt im Kupplungskorb.")
+                },
+                new Assistenzinformationen(0)
+            );
+            return new Anleitung("Lamellenkupplung", new List<Anleitungsschritt> { Schritt1, Schritt2, Schritt3, Schritt4 });
         }
 
         public void changeAnleitung(string newAnleitungName)

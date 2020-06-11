@@ -13,6 +13,10 @@
         {
             Schwierigkeitsgrad = 0;
         }
+        public Assistenzinformationen(int schwierigkeitsgrad)
+        {
+            Schwierigkeitsgrad = schwierigkeitsgrad;
+        }
 
     }
 }

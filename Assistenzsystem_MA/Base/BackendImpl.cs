@@ -23,7 +23,7 @@ namespace Assistenzsystem_MA.Base
             Bilderkennung = new Bilderkennung();
 
             // Logic
-            Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.receiveSchritt;
+            Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.filterAnleitungsschritt;
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
             Bilderkennung.OnWrong += Schrittdatenbank.incrementVersuchszahl;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;

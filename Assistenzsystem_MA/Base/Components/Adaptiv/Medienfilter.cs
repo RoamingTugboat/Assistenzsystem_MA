@@ -10,12 +10,16 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
     {
         public EventHandler<FilteredSchrittArgs> OnFilteredSchritt;
         public Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
+        public Mitarbeiterinformationen CurrentMitarbeiterinfos { get; set; }
         FilterStrategy FilterStrategy { get; set; }
 
         public Medienfilter()
         {
             Mitarbeiterdatenbank = generateDefaultDatenbank();
-            FilterStrategy = new TextOnlyStrategy();
+            FilterStrategy = new Text2DOnlyStrategy();
+            // We need this so we can adjust the Filter to the active Mitarbeiter, e.g. bad Mitarbeiters need
+            // a more lenient Filter and good Mitarbeiters can have everything filtered away:
+            Mitarbeiterdatenbank.OnChangedMitarbeiter += refreshMitarbeiterInfos;
         }
 
         Mitarbeiterdatenbank generateDefaultDatenbank()
@@ -26,16 +30,15 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             });
         }
 
-        public void receiveSchritt(object sender, AnleitungsschrittArgs e)
+        public void filterAnleitungsschritt(object sender, AnleitungsschrittArgs e)
         {
-            filter(e.Anleitungsschritt);
-        }
-
-        void filter(Anleitungsschritt anleitungsschritt)
-        {
-            var filteredSchritt = FilterStrategy.filter(anleitungsschritt);
+            var filteredSchritt = FilterStrategy.filter(e.Anleitungsschritt);
             OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(filteredSchritt));
         }
 
+        void refreshMitarbeiterInfos(object sender, MitarbeiterArgs e)
+        {
+            this.CurrentMitarbeiterinfos = e.Mitarbeiter.Mitarbeiterinformationen;
+        }
     }
 }
