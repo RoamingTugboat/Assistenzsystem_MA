@@ -16,7 +16,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         public Medienfilter()
         {
             Mitarbeiterdatenbank = generateDefaultDatenbank();
-            FilterStrategy = new Text2DOnlyStrategy();
+            FilterStrategy = new PassAllStrategy();
             // We need this so we can adjust the Filter to the active Mitarbeiter, e.g. bad Mitarbeiters need
             // a more lenient Filter and good Mitarbeiters can have everything filtered away:
             Mitarbeiterdatenbank.OnChangedMitarbeiter += refreshMitarbeiterInfos;

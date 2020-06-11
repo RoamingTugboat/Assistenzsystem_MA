@@ -5,6 +5,7 @@ namespace Assistenzsystem_MA.Base.Data
 {
 	[XmlRoot("Schrittbearbeitungsinfos")]
 	[XmlInclude(typeof(Text2D))]
+	[XmlInclude(typeof(Bild2D))]
 	public class Schrittbearbeitunginfos
 	{
 		public DateTime Timestamp { get; set; }
