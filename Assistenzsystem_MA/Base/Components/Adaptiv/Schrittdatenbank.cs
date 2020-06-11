@@ -9,6 +9,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     class Schrittdatenbank
     {
+        public EventHandler<SchrittbearbeitungsinfosArgs> OnUpdatedSchrittbearbeitungsinfos;
+        public EventHandler<IntArgs> OnIncrementedVersuchszahl;
         List<Schrittbearbeitunginfos> Schrittbearbeitunginfos { get; set; }
         public Schrittbearbeitunginfos currentSchritt { get; private set; }
         public long TimestampNewImageLoadedSeconds { get; private set; }
@@ -33,6 +35,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             {
                 Schrittbearbeitunginfos.Add(currentSchritt.Copy());
                 Console.WriteLine("Schritt gespeichert: "+currentSchritt);
+                OnUpdatedSchrittbearbeitungsinfos?.Invoke(this, new SchrittbearbeitungsinfosArgs(Schrittbearbeitunginfos));
             }
             else
             {
@@ -60,10 +63,21 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         public void incrementVersuchszahl(object sender, EventArgs e)
         {
             currentSchritt.Versuchszahl += 1;
+            OnIncrementedVersuchszahl?.Invoke(this, new IntArgs(currentSchritt.Versuchszahl));
         }
         void refreshSchrittLoadTimestamp()
         {
             TimestampNewImageLoadedSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // Logs system time in seconds
+        }
+
+        public void resetCurrentStep(object sender, EventArgs e)
+        {
+            currentSchritt = new Schrittbearbeitunginfos();
+        }
+
+        public void trySubmitCurrentStep(object sender, EventArgs e)
+        {
+            submitStep();
         }
 
         public void saveToFile(string filename)

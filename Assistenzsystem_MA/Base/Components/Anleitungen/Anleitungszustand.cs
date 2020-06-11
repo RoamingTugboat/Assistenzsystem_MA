@@ -8,6 +8,7 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
     class Anleitungszustand
     {
         public EventHandler<AnleitungArgs> OnAnleitungSet;
+        public EventHandler<AnleitungsschrittArgs> OnAnleitungsschrittFinished;
         public EventHandler<AnleitungsschrittArgs> OnAnleitungsschrittChanged;
         public EventHandler<AnleitungArgs> OnAnleitungUnloaded;
 
@@ -27,14 +28,21 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
                     Console.WriteLine("Anleitung ist auf null, kann deshalb schritt nicht aendern");
                     return;
                 }
+                if (value == currentStep)
+                {
+                    Console.WriteLine("Anleitungsschritt wurde wiederholt auf den selben Wert gesetzt.");
+                }
                 if (0 <= value && value < Anleitung.Schrittzahl)
                 {
+                    OnAnleitungsschrittFinished?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
                     Console.WriteLine(Anleitung.Name + " war auf Schritt " + currentStep + ", wechselt auf " + value);
                     currentStep = value;
                     OnAnleitungsschrittChanged?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
                 }
                 else if (Anleitung.Schrittzahl <= value)
                 {
+                    // Hacky:
+                    OnAnleitungsschrittFinished?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
                     Console.WriteLine("Neuer Schritt soll #" + value + " sein, aber die Anleitung hat nur " + Anleitung.Schrittzahl + " Schritte. Anleitung ist fertig und wird entfernt.");
                     var unloadedAnleitung = unloadAnleitung();
                     OnAnleitungUnloaded?.Invoke(this, new AnleitungArgs(unloadedAnleitung));

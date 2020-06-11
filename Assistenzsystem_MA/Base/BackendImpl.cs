@@ -22,17 +22,22 @@ namespace Assistenzsystem_MA.Base
             Schrittdatenbank = new Schrittdatenbank();
             Bilderkennung = new Bilderkennung();
 
-            // Logic
+            Anleitungszustand.OnAnleitungSet += Schrittdatenbank.setCurrentAnleitung;
+            Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.ensureFilterIsOn;
             Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.filterAnleitungsschritt;
+            Anleitungszustand.OnAnleitungsschrittChanged += Schrittdatenbank.setCurrentAnleitungsschritt;
+            Anleitungszustand.OnAnleitungsschrittFinished += Schrittdatenbank.trySubmitCurrentStep;
+            Anleitungszustand.OnAnleitungUnloaded += alertUnload;
+            Anleitungszustand.OnAnleitungUnloaded += Schrittdatenbank.resetCurrentStep;
+
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
+            Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
+
+            Schrittdatenbank.OnUpdatedSchrittbearbeitungsinfos += Medienfilter.adjustMitarbeiterSkill;
+            Schrittdatenbank.OnIncrementedVersuchszahl += Medienfilter.communicateCurrentAttempts;
+
             Bilderkennung.OnWrong += Schrittdatenbank.incrementVersuchszahl;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;
-            Anleitungszustand.OnAnleitungUnloaded += alertUnload;
-
-            // Schrittinfo
-            Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
-            Anleitungszustand.OnAnleitungSet += Schrittdatenbank.setCurrentAnleitung;
-            Anleitungszustand.OnAnleitungsschrittChanged += Schrittdatenbank.setCurrentAnleitungsschritt;
         }
 
         public void changeAnleitung(string newAnleitungName)
@@ -47,7 +52,6 @@ namespace Assistenzsystem_MA.Base
 
         public void recognizeImageAsRight()
         {
-            Schrittdatenbank.submitStep();
             Bilderkennung.recognizeImageAsRight();
         }
 
@@ -103,5 +107,6 @@ namespace Assistenzsystem_MA.Base
         {
             Schrittdatenbank.print();
         }
+
     }
 }

@@ -4,7 +4,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     class Text2DOnlyStrategy : FilterStrategy
     {
-        public override FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt)
+        public override FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt, Mitarbeiterinformationen mitarbeiterinformationen)
         {
             // Filter out any Media that aren't Text2D objects:
             var filteredSchritt = new FilteredAnleitungsschritt(anleitungsschritt.Copy());

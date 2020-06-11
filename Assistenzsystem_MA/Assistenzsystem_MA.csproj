@@ -37,6 +37,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Args\IntArgs.cs" />
+    <Compile Include="Base\Args\SchrittbearbeitungsinfosArgs.cs" />
     <Compile Include="Base\Args\ZeitSekundenArgs.cs" />
     <Compile Include="Base\Args\AnleitungArgs.cs" />
     <Compile Include="Base\Args\MitarbeiterArgs.cs" />

@@ -9,6 +9,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
     class Medienfilter
     {
         public EventHandler<FilteredSchrittArgs> OnFilteredSchritt;
+        // Todo:
+        // Serialize Mitarbeiters and their infos so they're persistent
         public Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
         public Mitarbeiterinformationen CurrentMitarbeiterinfos { get; set; }
         FilterStrategy FilterStrategy { get; set; }
@@ -30,15 +32,37 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             });
         }
 
+        public void adjustMitarbeiterSkill(object sender, SchrittbearbeitungsinfosArgs e)
+        {
+            Console.WriteLine("Updating Skill...");
+            //throw new NotImplementedException();
+        }
+
         public void filterAnleitungsschritt(object sender, AnleitungsschrittArgs e)
         {
-            var filteredSchritt = FilterStrategy.filter(e.Anleitungsschritt);
+            var filteredSchritt = FilterStrategy.filter(e.Anleitungsschritt, CurrentMitarbeiterinfos);
             OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(filteredSchritt));
         }
+
+        public void communicateCurrentAttempts(object sender, IntArgs e)
+        {
+            // If someone consistently messes up their attempts, this method
+            // disables the filter strategy to make sure they can complete the next step.
+            if(e.I > 2)
+            {
+                FilterStrategy.disable();
+            }
+        }      
+
 
         void refreshMitarbeiterInfos(object sender, MitarbeiterArgs e)
         {
             this.CurrentMitarbeiterinfos = e.Mitarbeiter.Mitarbeiterinformationen;
+        }
+
+        public void ensureFilterIsOn(object sender, EventArgs e)
+        {
+            FilterStrategy.enable();
         }
     }
 }

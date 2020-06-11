@@ -4,7 +4,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     class PassAllStrategy : FilterStrategy
     {
-        public override FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt)
+        public override FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt, Mitarbeiterinformationen mitarbeiterinformationen)
         {
             // Just copy and pass on without filtering anything
             var filteredSchritt = new FilteredAnleitungsschritt(anleitungsschritt.Copy());
