@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Assistenzsystem_MA.Base.Args;
 using System.Xml.Serialization;
 using System.IO;
-using System.Globalization;
 
 namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
@@ -21,33 +20,6 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             TimestampNewImageLoadedSeconds = 0;
         }
 
-
-        void setCurrentMitarbeiter(Mitarbeiter mitarbeiter)
-        {
-            currentSchritt.Mitarbeiter = mitarbeiter;
-        }
-
-        void setCurrentAnleitung(Anleitung anleitung)
-        {
-            currentSchritt.Anleitung = anleitung;
-        }
-
-        void setCurrentAnleitungsschritt(Anleitungsschritt anleitungsschritt)
-        {
-            currentSchritt.Anleitungsschritt = anleitungsschritt;
-            refreshLoadtimeTimestamp();
-        }
-
-        void incrementCurrentVersuchszahl()
-        {
-            currentSchritt.Versuchszahl += 1;
-        }
-
-        void setCurrentZeitSekunden(long zeitSekunden)
-        {
-            currentSchritt.ZeitSekunden = zeitSekunden;
-        }
-
         public void submitStep()
         {
             currentSchritt.Timestamp = DateTime.Now;
@@ -55,7 +27,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             // Log time step spent active
             var nowSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // System time in seconds
             var secondsPassedSinceImageWasLoaded = nowSeconds - TimestampNewImageLoadedSeconds;
-            setCurrentZeitSekunden(secondsPassedSinceImageWasLoaded);
+            currentSchritt.ZeitSekunden = secondsPassedSinceImageWasLoaded;
 
             if (currentSchritt.isFilledInProperly())
             {
@@ -68,34 +40,30 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             }
         }
 
-        void refreshLoadtimeTimestamp()
-        {
-            TimestampNewImageLoadedSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // Logs system time in seconds
-        }
 
         public void setCurrentMitarbeiter(object sender, MitarbeiterArgs e)
         {
-            setCurrentMitarbeiter(e.Mitarbeiter);
+            currentSchritt.Mitarbeiter = e.Mitarbeiter;
         }
 
         public void setCurrentAnleitung(object sender, AnleitungArgs e)
         {
-            setCurrentAnleitung(e.Anleitung);
+            currentSchritt.Anleitung = e.Anleitung);
         }
 
         public void setCurrentAnleitungsschritt(object sender, AnleitungsschrittArgs e)
         {
-            setCurrentAnleitungsschritt(e.Anleitungsschritt);
+            currentSchritt.Anleitungsschritt = e.Anleitungsschritt;
+            refreshSchrittLoadTimestamp();
         }
 
         public void incrementVersuchszahl(object sender, EventArgs e)
         {
-            incrementCurrentVersuchszahl();
+            currentSchritt.Versuchszahl += 1;
         }
-
-        public void setZeitSekunden(object sender, ZeitSekundenArgs e)
+        void refreshSchrittLoadTimestamp()
         {
-            setCurrentZeitSekunden(e.ZeitSekunden);
+            TimestampNewImageLoadedSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // Logs system time in seconds
         }
 
         public void saveToFile(string filename)
@@ -112,10 +80,12 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             var serializer = new XmlSerializer(typeof(List<Schrittbearbeitunginfos>));
             using (var reader = new FileStream(filename, FileMode.OpenOrCreate))
             {
+                // If XML file exists but is empty, load empty DB to prevent XML parsing exception:
                 if(new FileInfo(filename).Length == 0)
                 {
                     Schrittbearbeitunginfos = new List<Schrittbearbeitunginfos>();
                 }
+                // If XML file exists and contains data, load DB from it:
                 else
                 {
                     Schrittbearbeitunginfos = (List<Schrittbearbeitunginfos>)serializer.Deserialize(reader);
