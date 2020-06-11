@@ -12,7 +12,7 @@ namespace Assistenzsystem_MA
 
         public Launcher()
         {
-            // Yas is RoamingTugboat just to be clear here
+            // Ok there we go that worked
             backend = new BackendImpl();
             backend.OnSendingMedia += printMedium;
             Console.WriteLine("Welcome.");
