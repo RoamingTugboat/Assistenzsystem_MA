@@ -51,6 +51,11 @@ namespace Assistenzsystem_MA.Base
             Bilderkennung.recognizeImageAsRight();
         }
 
+        public void recognizeImageAsWrong()
+        {
+            Bilderkennung.recognizeImageAsWrong();
+        }
+
         public void flipForward()
         {
             Anleitungszustand.flipForward();

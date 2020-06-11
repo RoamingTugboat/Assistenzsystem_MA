@@ -2,6 +2,7 @@
 using Assistenzsystem_MA.Base.Args;
 using Assistenzsystem_MA.Base.Data;
 using System;
+using System.Xml.Serialization;
 
 namespace Assistenzsystem_MA
 {
@@ -15,7 +16,7 @@ namespace Assistenzsystem_MA
             backend = new BackendImpl();
             backend.OnSendingMedia += printMedium;
             Console.WriteLine("Welcome.");
-            Console.WriteLine("Available commands: listall, fr, bw, cha <Anleitungsname>, chm <Mitarbeitername>, forcecam, rr");
+            Console.WriteLine("Available commands: listall, fr, bw, cha <Anleitungsname>, chm <Mitarbeitername>, camr, camw, rr");
             unserInputParseLoop();
         }
 
@@ -46,9 +47,13 @@ namespace Assistenzsystem_MA
                     var remainingLine = line.Substring(4);
                     backend.changeMitarbeiter(remainingLine);
                 }
-                else if (line == "forcecam")
+                else if (line == "camr")
                 {
                     backend.recognizeImageAsRight();
+                }
+                else if (line == "camw")
+                {
+                    backend.recognizeImageAsWrong();
                 }
                 else if (line == "rr")
                 {
