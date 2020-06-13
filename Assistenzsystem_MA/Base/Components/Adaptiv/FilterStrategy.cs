@@ -4,9 +4,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
 {
     abstract class FilterStrategy
     {
-        
         protected bool Enabled { get; set; }
-
         public FilterStrategy()
         {
 
@@ -22,6 +20,6 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             Enabled = false;
         }
 
-        public abstract FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt, Mitarbeiterinformationen mitarbeiterinformationen);
+        public abstract FilteredAnleitungsschritt filter(Anleitungsschritt anleitungsschritt, Assistenzinformationen mitarbeiterinfos);
     }
 }

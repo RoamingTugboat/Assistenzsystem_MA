@@ -3,7 +3,7 @@
     public class Mitarbeiter
     {
         public string Name { get; set; }
-        public Mitarbeiterinformationen Mitarbeiterinformationen { get; set; }
+        public Assistenzinformationen Assistenzinformationen { get; set; }
 
         public Mitarbeiter()
         {
@@ -12,12 +12,12 @@
         public Mitarbeiter(string name)
         {
             Name = name;
-            Mitarbeiterinformationen = new Mitarbeiterinformationen();
+            Assistenzinformationen = new Assistenzinformationen();
         }
 
         public override string ToString()
         {
-            return Name + "("+Mitarbeiterinformationen+")";
+            return Name + "("+Assistenzinformationen+")";
         }
     }
 }

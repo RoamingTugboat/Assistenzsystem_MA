@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assistenzsystem_MA.Base.Args
 {
-    class SchrittbearbeitungsinfosArgs : EventArgs
+    public class SchrittbearbeitungsinfosArgs : EventArgs
     {
         public List<Schrittbearbeitunginfos> Schrittbearbeitunginfos { get; private set; }
         public SchrittbearbeitungsinfosArgs(List<Schrittbearbeitunginfos> schrittbearbeitunginfos)

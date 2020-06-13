@@ -1,21 +1,43 @@
-﻿namespace Assistenzsystem_MA.Base.Data
+﻿using System;
+
+namespace Assistenzsystem_MA.Base.Data
 {
     public class Assistenzinformationen
     {
-        // Einfache:
-        //   Medien, die zusammengehoeren (zB 2 Texte und ein Video fuer einen Schritt) haben einfach den selben wert,
-        //   nur die 2 texte sind dann nochmal gecopypastet mit einem wert niedriger,
-        //   und niedrigster UG mit nur einem text ist auch nochmal der text gecopypastet, dann mit 0.
-        //   Also gibts halt duplicates, aber so ist es einfach. Der basicste text hier existiert dann zB 3 mal, einmal
-        //   halt extra fuer jeden moeglichen UG in diesem Schritt.
-        public int Schwierigkeitsgrad { get; set; }
+        // Level 0 ist niedrigster assistenzgrad, level 5 hoechster assistenzgrad.
+        // Medien auf level 0 sollen immer angezeigt werden, die hoeheren level nur wenn der mitarbeiter entsprechend schlecht ist.
+        // Mitarbeiter auf level 0 sind super gut, mitarbeiter auf level 5 brauchen viel hilfe.
+        int assistenzlevel;
+        public int Assistenzlevel
+        {
+            get
+            {
+                return assistenzlevel;
+            }
+            set
+            {
+                if (0 <= value && value <= 5)
+                {
+                    assistenzlevel = value;
+                }
+                else
+                {
+                    Console.WriteLine("Kann Assistenzlevel nicht aendern, da es schon auf "+assistenzlevel+" ist.");
+                }
+            }
+        }
         public Assistenzinformationen()
         {
-            Schwierigkeitsgrad = 0;
+            Assistenzlevel = 0;
         }
-        public Assistenzinformationen(int schwierigkeitsgrad)
+        public Assistenzinformationen(int assistenzlevel)
         {
-            Schwierigkeitsgrad = schwierigkeitsgrad;
+            Assistenzlevel = assistenzlevel;
+        }
+
+        public override string ToString()
+        {
+            return "Assistenzlevel:"+Assistenzlevel;
         }
 
     }

@@ -10,7 +10,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
     class Schrittdatenbank
     {
         public EventHandler<SchrittbearbeitungsinfosArgs> OnUpdatedSchrittbearbeitungsinfos;
-        public EventHandler<IntArgs> OnIncrementedVersuchszahl;
+        //public EventHandler<SchrittbearbeitungsinfosArgs> OnUpdatedSchritt;
+        //public EventHandler<IntArgs> OnIncrementedVersuchszahl;
         List<Schrittbearbeitunginfos> Schrittbearbeitunginfos { get; set; }
         public Schrittbearbeitunginfos currentSchritt { get; private set; }
         public long TimestampNewImageLoadedSeconds { get; private set; }
@@ -63,7 +64,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         public void incrementVersuchszahl(object sender, EventArgs e)
         {
             currentSchritt.Versuchszahl += 1;
-            OnIncrementedVersuchszahl?.Invoke(this, new IntArgs(currentSchritt.Versuchszahl));
+            //OnIncrementedVersuchszahl?.Invoke(this, new IntArgs(currentSchritt.Versuchszahl));
         }
         void refreshSchrittLoadTimestamp()
         {

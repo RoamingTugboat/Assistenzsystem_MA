@@ -59,35 +59,43 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
         {
             var Schritt1 = new Anleitungsschritt(
                 "Schritt1",
-                new List<Anleitungsmedium>{
-                    new Text2D(new Point2D(0.5f,0.9f), "Legen Sie einen Kupplungskorb auf den Tisch."),
-                    new Bild2D(new Point2D(0.2f,0.1f), "imagename.jpg")
-                },
-                new Assistenzinformationen(0)
+                new List<MediumWithInfos>
+                {
+                    new MediumWithInfos(
+                        new Text2D(new Point2D(0.5f,0.9f), "Legen Sie einen Kupplungskorb auf den Tisch."),
+                        new Assistenzinformationen(0)
+                    ),
+                    new MediumWithInfos(
+                        new Bild2D(new Point2D(0.5f,0.5f), "imagename.jpg"),
+                        new Assistenzinformationen(1)
+                    )
+                }
             );
             var Schritt2 = new Anleitungsschritt(
                 "Schritt2",
-                new List<Anleitungsmedium>{
-                    new Text2D(new Point2D(0.5f,0.5f), "Nehmen Sie ein Kupplungsrad aus dem Schrank ..."),
-                },
-                new Assistenzinformationen(0)
+                new List<MediumWithInfos>
+                {
+                    new MediumWithInfos(
+                        new Text2D(new Point2D(0.5f,0.5f), "Nehmen Sie ein Kupplungsrad aus dem Schrank und fuegen sie das Kupplungsrad in den Kupplungskorb ein. Die Korkseite des Rades soll nach oben zeigen."),
+                        new Assistenzinformationen(0)
+                    ),
+                    new MediumWithInfos(
+                        new Bild2D(new Point2D(0.5f,0.5f), "imagename.jpg"),
+                        new Assistenzinformationen(1)
+                    )
+                }
             );
             var Schritt3 = new Anleitungsschritt(
                 "Schritt3",
-                new List<Anleitungsmedium>{
-                    new Text2D(new Point2D(0.5f,0.9f), "... und fuegen sie das Kupplungsrad in den Kupplungskorb ein. Die Korkseite des Rades soll nach oben zeigen."),
-                    new Bild2D(new Point2D(0.5f,0.5f), "imagename.jpg")
-                },
-                new Assistenzinformationen(0)
+                new List<MediumWithInfos>
+                {
+                    new MediumWithInfos(
+                        new Text2D(new Point2D(0.5f,0.5f), "Ende der Anleitung."),
+                        new Assistenzinformationen(0)
+                    )
+                }
             );
-            var Schritt4 = new Anleitungsschritt(
-                "Schritt4",
-                new List<Anleitungsmedium>{
-                    new Text2D(new Point2D(0.5f,0.5f), "Das Rad liegt jetzt im Kupplungskorb.")
-                },
-                new Assistenzinformationen(0)
-            );
-            return new Anleitung("Lamellenkupplung", new List<Anleitungsschritt> { Schritt1, Schritt2, Schritt3, Schritt4 });
+            return new Anleitung("Lamellenkupplung", new List<Anleitungsschritt> { Schritt1, Schritt2, Schritt3 });
         }
 
         public void changeAnleitung(string newAnleitungName)
@@ -126,6 +134,11 @@ namespace Assistenzsystem_MA.Base.Components.Anleitungen
         public void flipBackward()
         {
             CurrentStep -= 1;
+        }
+
+        public void reloadStep(object sender, EventArgs e)
+        {
+            OnAnleitungsschrittChanged?.Invoke(this, new AnleitungsschrittArgs(Anleitung.Anleitungsschritts[currentStep]));
         }
 
     }

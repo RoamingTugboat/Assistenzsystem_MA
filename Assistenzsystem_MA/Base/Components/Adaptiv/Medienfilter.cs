@@ -12,13 +12,13 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         // Todo:
         // Serialize Mitarbeiters and their infos so they're persistent
         public Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
-        public Mitarbeiterinformationen CurrentMitarbeiterinfos { get; set; }
+        public Assistenzinformationen CurrentMitarbeiterinfos { get; set; }
         FilterStrategy FilterStrategy { get; set; }
 
         public Medienfilter()
         {
             Mitarbeiterdatenbank = generateDefaultDatenbank();
-            FilterStrategy = new PassAllStrategy();
+            FilterStrategy = new ThreeAttemptStrategy();
             // We need this so we can adjust the Filter to the active Mitarbeiter, e.g. bad Mitarbeiters need
             // a more lenient Filter and good Mitarbeiters can have everything filtered away:
             Mitarbeiterdatenbank.OnChangedMitarbeiter += refreshMitarbeiterInfos;
@@ -44,25 +44,22 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(filteredSchritt));
         }
 
-        public void communicateCurrentAttempts(object sender, IntArgs e)
-        {
-            // If someone consistently messes up their attempts, this method
-            // disables the filter strategy to make sure they can complete the next step.
-            if(e.I > 2)
-            {
-                FilterStrategy.disable();
-            }
-        }      
-
-
         void refreshMitarbeiterInfos(object sender, MitarbeiterArgs e)
         {
-            this.CurrentMitarbeiterinfos = e.Mitarbeiter.Mitarbeiterinformationen;
+            this.CurrentMitarbeiterinfos = e.Mitarbeiter.Assistenzinformationen;
         }
 
         public void ensureFilterIsOn(object sender, EventArgs e)
         {
             FilterStrategy.enable();
+        }
+
+        public void incrementVersuchszahl(object sender, EventArgs e)
+        {
+            if(FilterStrategy is ThreeAttemptStrategy)
+            {
+                ((ThreeAttemptStrategy)FilterStrategy).incrementAttempts();
+            }
         }
     }
 }

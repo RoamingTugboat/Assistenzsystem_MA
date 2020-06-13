@@ -34,9 +34,10 @@ namespace Assistenzsystem_MA.Base
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
 
             Schrittdatenbank.OnUpdatedSchrittbearbeitungsinfos += Medienfilter.adjustMitarbeiterSkill;
-            Schrittdatenbank.OnIncrementedVersuchszahl += Medienfilter.communicateCurrentAttempts;
 
             Bilderkennung.OnWrong += Schrittdatenbank.incrementVersuchszahl;
+            Bilderkennung.OnWrong += Medienfilter.incrementVersuchszahl;
+            Bilderkennung.OnWrong += Anleitungszustand.reloadStep;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;
         }
 
@@ -72,9 +73,9 @@ namespace Assistenzsystem_MA.Base
 
         void broadcastSchrittMedia(object sender, FilteredSchrittArgs e)
         {
-            foreach (var medium in e.FilteredAnleitungsschritt.Anleitungsmedia)
+            foreach (var mediumWithInfos in e.FilteredAnleitungsschritt.AnleitungsmediaWithInfos)
             {
-                OnSendingMedia?.Invoke(this, new MediaArgs(medium));
+                OnSendingMedia?.Invoke(this, new MediaArgs(mediumWithInfos.Anleitungsmedium));
             }
         }
 
