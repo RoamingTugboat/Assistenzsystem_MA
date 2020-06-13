@@ -3,7 +3,12 @@ using System.Xml.Serialization;
 
 namespace Assistenzsystem_MA.Base.Data
 {
-	[XmlRoot("Schrittbearbeitungsinfos")]
+	// XmlRoot seems unnecessary:
+	//[XmlRoot("XMLRootAttribute")]
+
+	// These following XMLIncludes are necessary so XMLSerializers can serialize and deserialize Schrittbearbeitungsinfos.
+	// Without them, the serializer wouldn't understand Text2D and Bild2D datastructures.
+	// Working theory: XMLSerializer doesn't understand what an abstract class is, so derivates of abstract Anleitungsmedium must be included manually.
 	[XmlInclude(typeof(Text2D))]
 	[XmlInclude(typeof(Bild2D))]
 	public class Schrittbearbeitunginfos
@@ -17,7 +22,7 @@ namespace Assistenzsystem_MA.Base.Data
 
 		public Schrittbearbeitunginfos()
 		{
-			// Init with minimum values so it's clear when this object has been filled in properly
+			// Init with minimum and null values so it's clear when this object has been filled in properly:
 			Timestamp = new DateTime();
 			Mitarbeiter = null;
 			Anleitung = null;
@@ -33,7 +38,7 @@ namespace Assistenzsystem_MA.Base.Data
 
         public override string ToString()
         {
-			return Timestamp.ToString()+": "+Mitarbeiter+","+Anleitung + "," +Anleitungsschritt + "," + (VersuchErfolgreich?"Erfolgreich":"Inkorrekt") + "," +ZeitSekunden;
+			return Timestamp+": "+Mitarbeiter+","+Anleitung + "," +Anleitungsschritt + "," + VersuchErfolgreich + "," +ZeitSekunden;
         }
 
 		public Schrittbearbeitunginfos Copy()

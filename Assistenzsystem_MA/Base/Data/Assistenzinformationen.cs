@@ -37,7 +37,7 @@ namespace Assistenzsystem_MA.Base.Data
 
         public override string ToString()
         {
-            return "Assistenzlevel:"+Assistenzlevel;
+            return "Skill "+Assistenzlevel;
         }
 
     }

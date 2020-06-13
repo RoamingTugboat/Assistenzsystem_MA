@@ -27,8 +27,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
                     // If new step was triggered without repeated attempts, assembly worker must be getting better:
                     if(SameSchrittAttempts == 0)
                     {
+                        Console.WriteLine("Mitarbeiter-Assistenzlevel dropping to " + mitarbeiterInfos.Assistenzlevel);
                         mitarbeiterInfos.Assistenzlevel--;
-                        Console.WriteLine("Mitarbeiter got it right on the first try, their Assistenzlevel is now " + mitarbeiterInfos.Assistenzlevel);
                     }
                     else
                     {
@@ -40,8 +40,8 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             // If mitarbeiter worked on the same step three times, they need more assistance 
             if (SameSchrittAttempts > 0 && SameSchrittAttempts % 3 == 0)
             {
+                Console.WriteLine("Mitarbeiter-Assistenzlevel rising to " + mitarbeiterInfos.Assistenzlevel);
                 mitarbeiterInfos.Assistenzlevel++;
-                Console.WriteLine("Mitarbeiter made 3 wrong attempts, their Assistenzlevel is now " + mitarbeiterInfos.Assistenzlevel);
             }
             
             // Finally, filter step based on Erfahrungsgrad:

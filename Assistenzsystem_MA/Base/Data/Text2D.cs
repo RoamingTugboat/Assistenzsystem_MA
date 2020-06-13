@@ -19,7 +19,14 @@ namespace Assistenzsystem_MA.Base.Data
 
         public override string ToString()
         {
-            return "\"" + Content + "\" at " + Position;
+            if(Content.Length < 30)
+            {
+                return "\"" + Content + "\" " + Position;
+            }
+            else
+            {
+                return "\"" + Content.Substring(0,27) + "...\" " + Position;
+            }
         }
     }
 }

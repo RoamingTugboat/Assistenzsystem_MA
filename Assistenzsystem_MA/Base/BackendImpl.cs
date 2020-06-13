@@ -30,7 +30,7 @@ namespace Assistenzsystem_MA.Base
             Schrittdatenbank = new Schrittdatenbank();
             Bilderkennung = new Bilderkennung();
 
-            // Possible improvement: Ask Anleitungszustand to emit a page. 
+            // Possible improvement: Ask Anleitungszustand to emit a page instead of emissions being contingent on page flips
             Anleitungszustand.OnAnleitungSet += Schrittdatenbank.setCurrentAnleitung;
             Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.filterAnleitungsschritt;
             Anleitungszustand.OnAnleitungsschrittChanged += Schrittdatenbank.setCurrentAnleitungsschritt;
@@ -40,8 +40,8 @@ namespace Assistenzsystem_MA.Base
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
 
-            Bilderkennung.OnWrong += Anleitungszustand.reloadStep;
             Bilderkennung.OnWrong += Schrittdatenbank.trySubmitCurrentStepWrong;
+            Bilderkennung.OnWrong += Anleitungszustand.reloadStep;
             Bilderkennung.OnRight += Schrittdatenbank.trySubmitCurrentStepRight;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;
         }

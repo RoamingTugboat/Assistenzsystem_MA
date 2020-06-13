@@ -24,7 +24,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
                 if (mitarbeiter.Name.Equals(newMitarbeiterName))
                 {
                     activeMitarbeiter = mitarbeiter;
-                    Console.WriteLine("Changed Mitarbeiter to \"" + activeMitarbeiter.Name + "\".");
+                    Console.WriteLine("Mitarbeiter is now \"" + activeMitarbeiter.Name + "\".");
                     OnChangedMitarbeiter?.Invoke(this, new MitarbeiterArgs(mitarbeiter));
                     return;
                 }

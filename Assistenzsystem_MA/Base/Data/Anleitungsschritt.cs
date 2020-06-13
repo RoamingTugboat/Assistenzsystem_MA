@@ -20,7 +20,7 @@ namespace Assistenzsystem_MA.Base.Data
 
         public override string ToString()
         {
-            var s = "Anleitungsschritt \"" + Name + "\":";
+            var s = "\"" + Name + "\":";
             foreach(var medium in AnleitungsmediaWithInfos)
             {
                 s += " ";
