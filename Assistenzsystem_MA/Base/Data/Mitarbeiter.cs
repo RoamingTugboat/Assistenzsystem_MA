@@ -15,6 +15,12 @@
             Assistenzinformationen = new Assistenzinformationen();
         }
 
+        public Mitarbeiter(string name, Assistenzinformationen assistenzinformationen)
+        {
+            Name = name;
+            Assistenzinformationen = assistenzinformationen;
+        }
+
         public override string ToString()
         {
             return Name + "("+Assistenzinformationen+")";

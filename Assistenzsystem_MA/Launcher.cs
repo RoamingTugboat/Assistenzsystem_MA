@@ -14,7 +14,8 @@ namespace Assistenzsystem_MA
         {
             // Ok there we go that worked
             backend = new BackendImpl();
-            backend.OnSendingMedia += printMedium;
+            backend.OnAboutToSendNewMedia += clearMedia;
+            backend.OnSendingMedium += printMedium;
             Console.WriteLine("Welcome.");
             Console.WriteLine("Available commands: listall, fr, bw, cha <Anleitungsname>, chm <Mitarbeitername>, camr, camw, rr");
             unserInputParseLoop();
@@ -84,6 +85,11 @@ namespace Assistenzsystem_MA
             }
         }
 
+        void clearMedia(object sender, EventArgs e)
+        {
+            Console.WriteLine(">> CLEARING MEDIA");
+        }
+
         void printMedium(object sender, MediaArgs e)
         {
             var mediaDescription = "";
@@ -92,7 +98,6 @@ namespace Assistenzsystem_MA
                 mediaDescription += (e.Anleitungsmedium as Text2D);
             }
             Console.WriteLine("Backend sent a " + e.Anleitungsmedium.GetType().Name + " Medium. " + mediaDescription);
-
         }
 
         public static void Main(string[] args)

@@ -1,5 +1,4 @@
-﻿using Assistenzsystem_MA.Base.Args;
-using System;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace Assistenzsystem_MA.Base.Data
@@ -13,7 +12,7 @@ namespace Assistenzsystem_MA.Base.Data
 		public Mitarbeiter Mitarbeiter { get; set; }
 		public Anleitung Anleitung { get; set; }
 		public Anleitungsschritt Anleitungsschritt { get; set; }
-		public int Versuchszahl { get; set; }
+		public bool VersuchErfolgreich { get; set; }
 		public long ZeitSekunden { get; set; }
 
 		public Schrittbearbeitunginfos()
@@ -23,18 +22,18 @@ namespace Assistenzsystem_MA.Base.Data
 			Mitarbeiter = null;
 			Anleitung = null;
 			Anleitungsschritt = null;
-			Versuchszahl = 1;
+			VersuchErfolgreich = false;
 			ZeitSekunden = 0;
 		}
 
 		public bool isFilledInProperly()
 		{
-			return Timestamp != null && Mitarbeiter != null && Anleitung != null && Anleitungsschritt != null && Versuchszahl >= 1 && ZeitSekunden >= -1;
+			return Timestamp != null && Mitarbeiter != null && Anleitung != null && Anleitungsschritt != null && ZeitSekunden >= -1;
 		}
 
         public override string ToString()
         {
-			return Timestamp.ToString()+": "+Mitarbeiter+","+Anleitung + "," +Anleitungsschritt + "," +Versuchszahl + "," +ZeitSekunden;
+			return Timestamp.ToString()+": "+Mitarbeiter+","+Anleitung + "," +Anleitungsschritt + "," + (VersuchErfolgreich?"Erfolgreich":"Inkorrekt") + "," +ZeitSekunden;
         }
 
 		public Schrittbearbeitunginfos Copy()
@@ -44,7 +43,7 @@ namespace Assistenzsystem_MA.Base.Data
 			clone.Mitarbeiter = this.Mitarbeiter;
 			clone.Anleitung = this.Anleitung;
 			clone.Anleitungsschritt = this.Anleitungsschritt;
-			clone.Versuchszahl = this.Versuchszahl;
+			clone.VersuchErfolgreich = this.VersuchErfolgreich;
 			clone.ZeitSekunden = this.ZeitSekunden;
 			return clone;
         }

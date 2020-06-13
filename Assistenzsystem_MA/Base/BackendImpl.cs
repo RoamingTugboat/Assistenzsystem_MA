@@ -8,7 +8,15 @@ namespace Assistenzsystem_MA.Base
 {
     class BackendImpl
     {
-        public EventHandler<MediaArgs> OnSendingMedia;
+        /// <summary>
+        ///  Fired when new media are about to be sent. Use this to delete your active media before new ones arrive.
+        /// </summary>
+        public EventHandler<EventArgs> OnAboutToSendNewMedia;
+
+        /// <summary>
+        /// Fired multiple when an new assembly step is loaded. Media are e.g. 2D-Text, 3D-Models, images, or positioned images. The media explain the assembly step.
+        /// </summary>
+        public EventHandler<MediaArgs> OnSendingMedium;
 
         Medienfilter Medienfilter;
         Anleitungszustand Anleitungszustand;
@@ -22,22 +30,19 @@ namespace Assistenzsystem_MA.Base
             Schrittdatenbank = new Schrittdatenbank();
             Bilderkennung = new Bilderkennung();
 
+            // Possible improvement: Ask Anleitungszustand to emit a page. 
             Anleitungszustand.OnAnleitungSet += Schrittdatenbank.setCurrentAnleitung;
-            Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.ensureFilterIsOn;
             Anleitungszustand.OnAnleitungsschrittChanged += Medienfilter.filterAnleitungsschritt;
             Anleitungszustand.OnAnleitungsschrittChanged += Schrittdatenbank.setCurrentAnleitungsschritt;
-            Anleitungszustand.OnAnleitungsschrittFinished += Schrittdatenbank.trySubmitCurrentStep;
             Anleitungszustand.OnAnleitungUnloaded += alertUnload;
             Anleitungszustand.OnAnleitungUnloaded += Schrittdatenbank.resetCurrentStep;
 
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
 
-            Schrittdatenbank.OnUpdatedSchrittbearbeitungsinfos += Medienfilter.adjustMitarbeiterSkill;
-
-            Bilderkennung.OnWrong += Schrittdatenbank.incrementVersuchszahl;
-            Bilderkennung.OnWrong += Medienfilter.incrementVersuchszahl;
             Bilderkennung.OnWrong += Anleitungszustand.reloadStep;
+            Bilderkennung.OnWrong += Schrittdatenbank.trySubmitCurrentStepWrong;
+            Bilderkennung.OnRight += Schrittdatenbank.trySubmitCurrentStepRight;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;
         }
 
@@ -73,9 +78,10 @@ namespace Assistenzsystem_MA.Base
 
         void broadcastSchrittMedia(object sender, FilteredSchrittArgs e)
         {
+            OnAboutToSendNewMedia?.Invoke(this, new EventArgs());
             foreach (var mediumWithInfos in e.FilteredAnleitungsschritt.AnleitungsmediaWithInfos)
             {
-                OnSendingMedia?.Invoke(this, new MediaArgs(mediumWithInfos.Anleitungsmedium));
+                OnSendingMedium?.Invoke(this, new MediaArgs(mediumWithInfos.Anleitungsmedium));
             }
         }
 

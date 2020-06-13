@@ -12,7 +12,7 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         // Todo:
         // Serialize Mitarbeiters and their infos so they're persistent
         public Mitarbeiterdatenbank Mitarbeiterdatenbank { get; set; }
-        public Assistenzinformationen CurrentMitarbeiterinfos { get; set; }
+        public Mitarbeiter CurrentMitarbeiter { get; set; }
         FilterStrategy FilterStrategy { get; set; }
 
         public Medienfilter()
@@ -27,39 +27,21 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
         Mitarbeiterdatenbank generateDefaultDatenbank()
         {
             return new Mitarbeiterdatenbank(new List<Mitarbeiter>() {
-                new Mitarbeiter("Jake"),
-                new Mitarbeiter("Ari")
+                new Mitarbeiter("Jake", new Assistenzinformationen(0)),
+                new Mitarbeiter("Ari", new Assistenzinformationen(0))
             });
-        }
-
-        public void adjustMitarbeiterSkill(object sender, SchrittbearbeitungsinfosArgs e)
-        {
-            Console.WriteLine("Updating Skill...");
-            //throw new NotImplementedException();
         }
 
         public void filterAnleitungsschritt(object sender, AnleitungsschrittArgs e)
         {
-            var filteredSchritt = FilterStrategy.filter(e.Anleitungsschritt, CurrentMitarbeiterinfos);
+            var filteredSchritt = FilterStrategy.filter(e.Anleitungsschritt, CurrentMitarbeiter.Assistenzinformationen);
             OnFilteredSchritt.Invoke(this, new FilteredSchrittArgs(filteredSchritt));
         }
 
         void refreshMitarbeiterInfos(object sender, MitarbeiterArgs e)
         {
-            this.CurrentMitarbeiterinfos = e.Mitarbeiter.Assistenzinformationen;
+            this.CurrentMitarbeiter = e.Mitarbeiter;
         }
 
-        public void ensureFilterIsOn(object sender, EventArgs e)
-        {
-            FilterStrategy.enable();
-        }
-
-        public void incrementVersuchszahl(object sender, EventArgs e)
-        {
-            if(FilterStrategy is ThreeAttemptStrategy)
-            {
-                ((ThreeAttemptStrategy)FilterStrategy).incrementAttempts();
-            }
-        }
     }
 }

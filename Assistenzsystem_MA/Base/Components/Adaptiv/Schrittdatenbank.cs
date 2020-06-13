@@ -10,8 +10,6 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
     class Schrittdatenbank
     {
         public EventHandler<SchrittbearbeitungsinfosArgs> OnUpdatedSchrittbearbeitungsinfos;
-        //public EventHandler<SchrittbearbeitungsinfosArgs> OnUpdatedSchritt;
-        //public EventHandler<IntArgs> OnIncrementedVersuchszahl;
         List<Schrittbearbeitunginfos> Schrittbearbeitunginfos { get; set; }
         public Schrittbearbeitunginfos currentSchritt { get; private set; }
         public long TimestampNewImageLoadedSeconds { get; private set; }
@@ -23,17 +21,18 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             TimestampNewImageLoadedSeconds = 0;
         }
 
-        public void submitStep()
+        public void submitStep(bool stepWasExecutedCorrectly)
         {
             currentSchritt.Timestamp = DateTime.Now;
 
-            // Log time step spent active
+            // Log time step spent active:
             var nowSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // System time in seconds
             var secondsPassedSinceImageWasLoaded = nowSeconds - TimestampNewImageLoadedSeconds;
             currentSchritt.ZeitSekunden = secondsPassedSinceImageWasLoaded;
 
             if (currentSchritt.isFilledInProperly())
             {
+                currentSchritt.VersuchErfolgreich = stepWasExecutedCorrectly;
                 Schrittbearbeitunginfos.Add(currentSchritt.Copy());
                 Console.WriteLine("Schritt gespeichert: "+currentSchritt);
                 OnUpdatedSchrittbearbeitungsinfos?.Invoke(this, new SchrittbearbeitungsinfosArgs(Schrittbearbeitunginfos));
@@ -61,11 +60,6 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             refreshSchrittLoadTimestamp();
         }
 
-        public void incrementVersuchszahl(object sender, EventArgs e)
-        {
-            currentSchritt.Versuchszahl += 1;
-            //OnIncrementedVersuchszahl?.Invoke(this, new IntArgs(currentSchritt.Versuchszahl));
-        }
         void refreshSchrittLoadTimestamp()
         {
             TimestampNewImageLoadedSeconds = DateTime.Now.Ticks / TimeSpan.TicksPerSecond; // Logs system time in seconds
@@ -76,9 +70,14 @@ namespace Assistenzsystem_MA.Base.Components.Adaptiv
             currentSchritt = new Schrittbearbeitunginfos();
         }
 
-        public void trySubmitCurrentStep(object sender, EventArgs e)
+        public void trySubmitCurrentStepRight(object sender, EventArgs e)
         {
-            submitStep();
+            submitStep(true);
+        }
+
+        public void trySubmitCurrentStepWrong(object sender, EventArgs e)
+        {
+            submitStep(false);
         }
 
         public void saveToFile(string filename)
