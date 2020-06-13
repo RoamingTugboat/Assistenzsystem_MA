@@ -40,8 +40,11 @@ namespace Assistenzsystem_MA.Base
             Medienfilter.OnFilteredSchritt += broadcastSchrittMedia;
             Medienfilter.Mitarbeiterdatenbank.OnChangedMitarbeiter += Schrittdatenbank.setCurrentMitarbeiter;
 
+            // The order of these two I/O connections is important: Reloading before submitting would reset the
+            // work time of the step and submit it with 0 seconds
             Bilderkennung.OnWrong += Schrittdatenbank.trySubmitCurrentStepWrong;
             Bilderkennung.OnWrong += Anleitungszustand.reloadStep;
+            
             Bilderkennung.OnRight += Schrittdatenbank.trySubmitCurrentStepRight;
             Bilderkennung.OnRight += Anleitungszustand.flipForward;
         }
