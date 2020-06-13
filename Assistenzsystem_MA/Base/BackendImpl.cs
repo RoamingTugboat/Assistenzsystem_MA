@@ -9,12 +9,15 @@ namespace Assistenzsystem_MA.Base
     class BackendImpl
     {
         /// <summary>
-        ///  Fired when new media are about to be sent. Use this to delete your active media before new ones arrive.
+        ///  Fired right before a list of media get send (i.e. one line before a foreach-loop sends out the media,
+        ///  and ou).
+        ///  Use this to delete your existing media before new ones arrive.
         /// </summary>
         public EventHandler<EventArgs> OnAboutToSendNewMedia;
 
         /// <summary>
-        /// Fired multiple when an new assembly step is loaded. Media are e.g. 2D-Text, 3D-Models, images, or positioned images. The media explain the assembly step.
+        /// When a new assembly step is loaded, the media in the step are sent out. Media are e.g. 2D-Text, 3D-Models,
+        /// images, or positioned images. This Event sends out every individual medium, and contains the medium as an argument.
         /// </summary>
         public EventHandler<MediaArgs> OnSendingMedium;
 
